@@ -1,0 +1,44 @@
+package com.taxon_mobile.repositories;
+
+import androidx.lifecycle.MutableLiveData;
+
+import com.taxon_mobile.api.ApiService;
+import com.taxon_mobile.models.LoginResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class AuthRepository {
+    private static AuthRepository repository;
+
+    private AuthRepository() {
+
+    }
+
+    public static AuthRepository getInstance() {
+        if (repository == null) {
+            repository = new AuthRepository();
+        }
+
+        return repository;
+    }
+
+    public MutableLiveData<LoginResponse> login(String email, String password) {
+        final MutableLiveData<LoginResponse> result = new MutableLiveData<>();
+
+        ApiService.endPoint().login(email, password).enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                result.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+        return result;
+    }
+}
