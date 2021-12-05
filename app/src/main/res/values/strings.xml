@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">taxon-mobile</string>
+
+    <!--  bottom nav bar  -->
+    <string name="home_bottom_nav">Home</string>
+    <string name="login_bottom_nav">Login</string>
+
+    <!--  login fragment  -->
+    <string name="login">Masuk</string>
+    <string name="email_label">Email</string>
+    <string name="email_hint">e.g johndoe@gmail.com</string>
+    <string name="password_label">Password</string>
+    <string name="login_btn_label">Login</string>
 </resources>
