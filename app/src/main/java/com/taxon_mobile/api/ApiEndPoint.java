@@ -16,6 +16,7 @@ public interface ApiEndPoint {
             @Field("password") String password
     );
 
+    @FormUrlEncoded
     @POST("register")
     Call<RegisterResponse> register(
             @Field("name") String name,
