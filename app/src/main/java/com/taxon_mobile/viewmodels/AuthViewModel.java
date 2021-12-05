@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.models.RegisterResponse;
 import com.taxon_mobile.repositories.AuthRepository;
 
 public class AuthViewModel extends AndroidViewModel {
@@ -24,7 +25,14 @@ public class AuthViewModel extends AndroidViewModel {
         resultLogin = repository.login(email, password);
     }
 
-    public LiveData<LoginResponse> getUserDetails() {
+    public LiveData<LoginResponse> getLoginDetails() {
         return resultLogin;
     }
+
+    private MutableLiveData<RegisterResponse> resultRegister = new MutableLiveData<>();
+    public void register(String name, String username, String email, String password){
+        resultRegister = repository.register(name, username, email, password);
+    }
+
+    public LiveData<RegisterResponse> getRegisterDetails() { return resultRegister; }
 }

@@ -68,7 +68,7 @@ public class LoginFragment extends Fragment {
                 String email = login_input_email.getEditText().getText().toString().trim();
                 String password = login_input_password.getEditText().getText().toString().trim();
                 viewModel.login(email, password);
-                viewModel.getUserDetails().observe(getViewLifecycleOwner(), new Observer<LoginResponse>() {
+                viewModel.getLoginDetails().observe(getViewLifecycleOwner(), new Observer<LoginResponse>() {
                     @Override
                     public void onChanged(LoginResponse loginResponse) {
                         Toast.makeText(getContext(), loginResponse.getToken(), Toast.LENGTH_SHORT).show();
