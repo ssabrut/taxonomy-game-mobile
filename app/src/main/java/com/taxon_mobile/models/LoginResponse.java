@@ -1,4 +1,4 @@
-package com.taxon_mobile.model;
+package com.taxon_mobile.models;
 
 import com.google.gson.Gson;
 
