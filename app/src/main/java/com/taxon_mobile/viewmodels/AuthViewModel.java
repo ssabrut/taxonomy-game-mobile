@@ -19,12 +19,12 @@ public class AuthViewModel extends AndroidViewModel {
         repository = AuthRepository.getInstance();
     }
 
-    private MutableLiveData<LoginResponse> userDetails = new MutableLiveData<>();
-    public void getUser(String email, String password) {
-        userDetails = repository.login(email, password);
+    private MutableLiveData<LoginResponse> resultLogin = new MutableLiveData<>();
+    public void login(String email, String password) {
+        resultLogin = repository.login(email, password);
     }
 
-    public LiveData<LoginResponse> getUserResults() {
-        return userDetails;
+    public LiveData<LoginResponse> getUserDetails() {
+        return resultLogin;
     }
 }

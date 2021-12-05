@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -11,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.taxon_mobile.R;
+import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.viewmodels.AuthViewModel;
 import com.taxon_mobile.views.activities.RegisterActivity;
 
@@ -64,7 +67,13 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 String email = login_input_email.getEditText().getText().toString().trim();
                 String password = login_input_password.getEditText().getText().toString().trim();
-                viewModel.getUser(email, password);
+                viewModel.login(email, password);
+                viewModel.getUserDetails().observe(getViewLifecycleOwner(), new Observer<LoginResponse>() {
+                    @Override
+                    public void onChanged(LoginResponse loginResponse) {
+                        Toast.makeText(getContext(), loginResponse.getToken(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 

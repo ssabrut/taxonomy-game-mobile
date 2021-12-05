@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.taxon_mobile.api.ApiService;
 import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.models.RegisterResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
