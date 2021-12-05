@@ -1,10 +1,10 @@
 package com.taxon_mobile.views.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.taxon_mobile.R;
 import com.taxon_mobile.viewmodels.AuthViewModel;
-import com.taxon_mobile.views.activities.RegisterActivity;
 
 public class LoginFragment extends Fragment {
 
@@ -71,8 +70,7 @@ public class LoginFragment extends Fragment {
         login_change_auth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext().getApplicationContext(), RegisterActivity.class);
-                startActivity(intent);
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
             }
         });
 
