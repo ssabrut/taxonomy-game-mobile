@@ -5,6 +5,9 @@
         android:id="@+id/mainFragment"
         android:icon="@drawable/ic_baseline_home_24" />
     <item
+        android:id="@+id/upgradeFragment"
+        android:icon="@drawable/upgrade" />
+    <item
         android:id="@+id/loginFragment"
         android:icon="@drawable/ic_baseline_person_24" />
 </menu>
