@@ -27,4 +27,9 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/upgradeFragment"
+        android:name="com.taxon_mobile.views.fragments.UpgradeFragment"
+        android:label="fragment_upgrade"
+        tools:layout="@layout/fragment_upgrade" />
 </navigation>
