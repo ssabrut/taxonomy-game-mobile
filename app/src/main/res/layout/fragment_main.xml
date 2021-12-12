@@ -7,6 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".views.fragments.MainFragment">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/galaxy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/main_earth" />
+
+    <ImageView
+        android:id="@+id/main_earth"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/earth"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
@@ -22,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="0"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageButton"
@@ -34,6 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="DNA"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageButton"
@@ -41,9 +64,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="128dp"
         android:layout_height="48dp"
-        app:cardBackgroundColor="@color/purple_500"
+        app:cardBackgroundColor="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 

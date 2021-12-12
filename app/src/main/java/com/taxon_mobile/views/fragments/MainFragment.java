@@ -8,6 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,11 +21,13 @@ public class MainFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int duration = 120000;
     private String mParam1;
     private String mParam2;
 
     private ConstraintLayout main_canvas;
     private TextView main_user_currency, main_user_click_power;
+    private ImageView main_earth;
 
     public MainFragment() {
     }
@@ -50,6 +56,18 @@ public class MainFragment extends Fragment {
         main_canvas = view.findViewById(R.id.main_canvas);
         main_user_currency = view.findViewById(R.id.main_user_currency);
         main_user_click_power = view.findViewById(R.id.main_user_click_power);
+        main_earth = view.findViewById(R.id.main_earth);
+
+        RotateAnimation rotate = new RotateAnimation(
+                0, 360,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f
+        );
+
+        rotate.setDuration(duration);
+        rotate.setRepeatCount(Animation.INFINITE);
+        rotate.setInterpolator(new LinearInterpolator());
+        main_earth.startAnimation(rotate);
 
         main_canvas.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/mainFragment"
-        android:title="@string/home_bottom_nav" />
+        android:icon="@drawable/ic_baseline_home_24" />
     <item
         android:id="@+id/loginFragment"
-        android:title="@string/login_bottom_nav" />
+        android:icon="@drawable/ic_baseline_person_24" />
 </menu>
