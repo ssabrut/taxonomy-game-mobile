@@ -6,6 +6,7 @@ import com.taxon_mobile.models.RegisterResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiEndPoint {
@@ -24,4 +25,8 @@ public interface ApiEndPoint {
             @Field("email") String email,
             @Field("password") String password
     );
+
+    @FormUrlEncoded
+    @GET("upgrade-power")
+    Call<LoginResponse> upgradePower();
 }

@@ -19,4 +19,7 @@
     <string name="register_btn_label">Daftar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--  main fragment  -->
+    <string name="click_power_placeholder">Click Power</string>
 </resources>
