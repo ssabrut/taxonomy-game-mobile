@@ -17,9 +17,12 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.taxon_mobile.R;
 import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.models.User;
 import com.taxon_mobile.viewmodels.AuthViewModel;
 
 public class LoginFragment extends Fragment {
+
+    public static User user;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -60,6 +63,7 @@ public class LoginFragment extends Fragment {
         login_btn = view.findViewById(R.id.login_btn);
         login_change_auth = view.findViewById(R.id.login_change_auth);
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        user = new User();
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +74,10 @@ public class LoginFragment extends Fragment {
                 viewModel.getLoginDetails().observe(getViewLifecycleOwner(), new Observer<LoginResponse>() {
                     @Override
                     public void onChanged(LoginResponse loginResponse) {
-                        Toast.makeText(getContext(), loginResponse.getToken(), Toast.LENGTH_SHORT).show();
+                        if (loginResponse.getStatus_code() == 200) {
+                            user = loginResponse.getUser();
+                            Toast.makeText(getContext(), "a", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
