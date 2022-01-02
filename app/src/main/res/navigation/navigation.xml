@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/upgradeFragment"
-        android:name="com.taxon_mobile.views.fragments.UpgradeFragment"
+        android:name="com.taxon_mobile.views.fragments.UserCreatureFragment"
         android:label="fragment_upgrade"
-        tools:layout="@layout/fragment_upgrade" />
+        tools:layout="@layout/fragment_user_creature" />
 </navigation>

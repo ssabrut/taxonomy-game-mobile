@@ -60,15 +60,19 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-
+    public void onStart() {
+        super.onStart();
         if (LoginFragment.user != null) {
             MainActivity.power = LoginFragment.user.getStat().getPower();
             MainActivity.evo = LoginFragment.user.getStat().getEvo();
             MainActivity.dna = LoginFragment.user.getStat().getDna();
             MainActivity.point = LoginFragment.user.getStat().getPoint();
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         main_canvas = view.findViewById(R.id.main_canvas);
         main_earth = view.findViewById(R.id.main_earth);

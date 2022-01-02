@@ -78,6 +78,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onChanged(LoginResponse loginResponse) {
                         if (loginResponse.getStatus_code() == 200) {
+                            System.out.println(loginResponse.getToken());
                             user = loginResponse.getUser();
                             token = loginResponse.getToken();
                             SharedPreferences sp = getContext().getSharedPreferences("UserStat", Context.MODE_PRIVATE);
