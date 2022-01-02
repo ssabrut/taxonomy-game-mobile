@@ -7,37 +7,15 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-public class Species implements Parcelable {
+public class UserCreature implements Parcelable {
 
+    private List<Species> species;
 
-    private List<UserCreatures> userCreatures;
-
-    protected Species(Parcel in) {
+    protected UserCreature(Parcel in) {
     }
 
-    public static final Creator<Species> CREATOR = new Creator<Species>() {
-        @Override
-        public Species createFromParcel(Parcel in) {
-            return new Species(in);
-        }
-
-        @Override
-        public Species[] newArray(int size) {
-            return new Species[size];
-        }
-    };
-
-    public static Species objectFromData(String str) {
-
-        return new Gson().fromJson(str, Species.class);
-    }
-
-    public List<UserCreatures> getUserCreatures() {
-        return userCreatures;
-    }
-
-    public void setUserCreatures(List<UserCreatures> userCreatures) {
-        this.userCreatures = userCreatures;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
     }
 
     @Override
@@ -45,11 +23,32 @@ public class Species implements Parcelable {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public static final Creator<UserCreature> CREATOR = new Creator<UserCreature>() {
+        @Override
+        public UserCreature createFromParcel(Parcel in) {
+            return new UserCreature(in);
+        }
+
+        @Override
+        public UserCreature[] newArray(int size) {
+            return new UserCreature[size];
+        }
+    };
+
+    public static UserCreature objectFromData(String str) {
+
+        return new Gson().fromJson(str, UserCreature.class);
     }
 
-    public static class UserCreatures {
+    public List<Species> getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(List<Species> species) {
+        this.species = species;
+    }
+
+    public static class Species {
         private int id;
         private int genus_id;
         private String name;
@@ -61,9 +60,9 @@ public class Species implements Parcelable {
         private String created_at;
         private String updated_at;
 
-        public static UserCreatures objectFromData(String str) {
+        public static Species objectFromData(String str) {
 
-            return new Gson().fromJson(str, UserCreatures.class);
+            return new Gson().fromJson(str, Species.class);
         }
 
         public int getId() {

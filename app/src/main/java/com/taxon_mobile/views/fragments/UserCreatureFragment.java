@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.taxon_mobile.R;
 import com.taxon_mobile.adapters.UserCreatureAdapter;
-import com.taxon_mobile.models.Species;
+import com.taxon_mobile.models.UserCreature;
 import com.taxon_mobile.viewmodels.SpeciesViewModel;
 
 import java.util.ArrayList;
@@ -28,7 +28,6 @@ public class UserCreatureFragment extends Fragment {
     private String mParam2;
     private RecyclerView user_creature_rv;
     private SpeciesViewModel viewModel;
-    private List<Species> listUserCreature;
 
     public UserCreatureFragment() {
         // Required empty public constructor
@@ -56,7 +55,6 @@ public class UserCreatureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_creature, container, false);
         user_creature_rv = view.findViewById(R.id.user_creature_rv);
-        listUserCreature = new ArrayList<>();
         viewModel = new ViewModelProvider(this).get(SpeciesViewModel.class);
         if (LoginFragment.token != "") {
             viewModel.userCreature("Bearer " + LoginFragment.token);
@@ -66,13 +64,12 @@ public class UserCreatureFragment extends Fragment {
         return view;
     }
 
-    private Observer<Species> showUserCreature = new Observer<Species>() {
+    private Observer<List<UserCreature.Species>> showUserCreature = new Observer<List<UserCreature.Species>>() {
         @Override
-        public void onChanged(Species userCreature) {
-            listUserCreature.add(userCreature);
+        public void onChanged(List<UserCreature.Species> userCreature) {
             user_creature_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
             UserCreatureAdapter adapter = new UserCreatureAdapter(getActivity().getApplicationContext());
-            adapter.setListUserCreature(listUserCreature);
+            adapter.setListUserCreature(userCreature);
             user_creature_rv.setAdapter(adapter);
         }
     };

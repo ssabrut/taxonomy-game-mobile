@@ -2,7 +2,7 @@ package com.taxon_mobile.api;
 
 import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.models.RegisterResponse;
-import com.taxon_mobile.models.Species;
+import com.taxon_mobile.models.UserCreature;
 import com.taxon_mobile.models.User;
 
 import retrofit2.Call;
@@ -45,7 +45,7 @@ public interface ApiEndPoint {
     );
 
     @GET("user-creatures")
-    Call<Species> userCreatures(
+    Call<UserCreature> userCreatures(
             @Header("Authorization") String token
     );
 }

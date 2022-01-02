@@ -13,24 +13,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.taxon_mobile.R;
-import com.taxon_mobile.models.Species;
+import com.taxon_mobile.models.UserCreature;
 
 import java.util.List;
 
 public class UserCreatureAdapter extends RecyclerView.Adapter<UserCreatureAdapter.UserCreatureViewHolder> {
 
     private Context context;
-    private List<Species> listUserCreature;
+    private List<UserCreature.Species> listUserCreature;
 
     public UserCreatureAdapter(Context context) {
         this.context = context;
     }
 
-    private List<Species> getListUserCreature() {
+    private List<UserCreature.Species> getListUserCreature() {
         return listUserCreature;
     }
 
-    public void setListUserCreature(List<Species> listUserCreature) {
+    public void setListUserCreature(List<UserCreature.Species> listUserCreature) {
         this.listUserCreature = listUserCreature;
     }
 
@@ -43,9 +43,10 @@ public class UserCreatureAdapter extends RecyclerView.Adapter<UserCreatureAdapte
 
     @Override
     public void onBindViewHolder(@NonNull UserCreatureViewHolder holder, int position) {
-        final Species result = getListUserCreature().get(position);
+        final UserCreature.Species result = getListUserCreature().get(position);
 //        Glide.with(context).load(result).into(holder.user_creature_image);
-//        holder.user_creature_common_name.setText(result.getCommon_name());
+        holder.user_creature_common_name.setText(result.getCommon_name());
+        holder.user_creature_name.setText(result.getName());
     }
 
     @Override
