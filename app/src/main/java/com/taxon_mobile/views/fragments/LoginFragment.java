@@ -1,5 +1,7 @@
 package com.taxon_mobile.views.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,6 +25,7 @@ import com.taxon_mobile.viewmodels.AuthViewModel;
 public class LoginFragment extends Fragment {
 
     public static LoginResponse.User user;
+    public static String token;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -58,6 +61,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        token = "";
         login_input_email = view.findViewById(R.id.login_input_email);
         login_input_password = view.findViewById(R.id.login_input_password);
         login_btn = view.findViewById(R.id.login_btn);
@@ -75,9 +79,14 @@ public class LoginFragment extends Fragment {
                     public void onChanged(LoginResponse loginResponse) {
                         if (loginResponse.getStatus_code() == 200) {
                             user = loginResponse.getUser();
-                            Toast.makeText(getContext(), user.getUsername(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "b", Toast.LENGTH_SHORT).show();
+                            token = loginResponse.getToken();
+                            SharedPreferences sp = getContext().getSharedPreferences("UserStat", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putInt("power", loginResponse.getUser().getStat().getPower());
+                            editor.putInt("evo", loginResponse.getUser().getStat().getEvo());
+                            editor.putInt("dna", loginResponse.getUser().getStat().getDna());
+                            editor.putInt("point", loginResponse.getUser().getStat().getPoint());
+                            editor.commit();
                         }
                     }
                 });
