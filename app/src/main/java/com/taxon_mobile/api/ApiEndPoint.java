@@ -2,10 +2,10 @@ package com.taxon_mobile.api;
 
 import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.models.RegisterResponse;
+import com.taxon_mobile.models.Species;
 import com.taxon_mobile.models.User;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -42,5 +42,10 @@ public interface ApiEndPoint {
             @Field("evo") int evo,
             @Field("dna") int dna,
             @Field("point") int point
+    );
+
+    @GET("user-creatures")
+    Call<Species> userCreatures(
+            @Header("Authorization") String token
     );
 }
