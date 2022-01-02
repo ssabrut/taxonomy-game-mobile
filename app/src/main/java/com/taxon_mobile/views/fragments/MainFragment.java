@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.taxon_mobile.R;
+import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.models.User;
+import com.taxon_mobile.viewmodels.UserStatViewModel;
+import com.taxon_mobile.views.MainActivity;
 
 public class MainFragment extends Fragment {
-
-    private int power;
-    private int evo;
-    private int dna;
-    private int point;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -33,8 +34,9 @@ public class MainFragment extends Fragment {
 
     private ConstraintLayout main_canvas;
     private ImageView main_earth;
-    private TextView main_user_click_power, main_user_dna;
+    public static TextView main_user_click_power, main_user_dna;
     private CardView main_upgrade_user_click_power_btn;
+    private UserStatViewModel viewModel;
 
     public MainFragment() {
     }
@@ -61,14 +63,22 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
+        if (LoginFragment.user != null) {
+            MainActivity.power = LoginFragment.user.getStat().getPower();
+            MainActivity.evo = LoginFragment.user.getStat().getEvo();
+            MainActivity.dna = LoginFragment.user.getStat().getDna();
+            MainActivity.point = LoginFragment.user.getStat().getPoint();
+        }
+
         main_canvas = view.findViewById(R.id.main_canvas);
         main_earth = view.findViewById(R.id.main_earth);
         main_user_click_power = view.findViewById(R.id.main_user_click_power);
         main_user_dna = view.findViewById(R.id.main_user_dna);
         main_upgrade_user_click_power_btn = view.findViewById(R.id.main_upgrade_user_click_power_btn);
+        viewModel = new ViewModelProvider(this).get(UserStatViewModel.class);
 
-        main_user_click_power.setText(String.valueOf(power));
-        main_user_dna.setText(String.valueOf(dna));
+        main_user_click_power.setText(String.valueOf(MainActivity.power));
+        main_user_dna.setText(String.valueOf(MainActivity.evo));
 
         RotateAnimation rotate = new RotateAnimation(
                 0, 360,
@@ -84,8 +94,25 @@ public class MainFragment extends Fragment {
         main_canvas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dna += power;
-                main_user_dna.setText(String.valueOf(dna));
+                MainActivity.evo += Integer.parseInt(main_user_click_power.getText().toString());
+                main_user_dna.setText(String.valueOf(MainActivity.evo));
+            }
+        });
+
+        main_upgrade_user_click_power_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (LoginFragment.token != "") {
+                    String token = LoginFragment.token;
+                    viewModel.upgradePower("Bearer " + token);
+                    viewModel.getUpgradePowerDetails().observe(getViewLifecycleOwner(), new Observer<User.Stat>() {
+                        @Override
+                        public void onChanged(User.Stat stat) {
+                            MainActivity.power = stat.getPower();
+                            main_user_click_power.setText(String.valueOf(stat.getPower()));
+                        }
+                    });
+                }
             }
         });
 
