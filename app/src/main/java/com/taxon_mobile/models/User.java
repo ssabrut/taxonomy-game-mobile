@@ -14,11 +14,11 @@ public class User {
     private String email_verified_at;
     private String created_at;
     private String updated_at;
-    private LoginResponse.User.Stat stat;
+    private User.Stat stat;
 
-    public static LoginResponse.User objectFromData(String str) {
+    public static User objectFromData(String str) {
 
-        return new Gson().fromJson(str, LoginResponse.User.class);
+        return new Gson().fromJson(str, User.class);
     }
 
     public int getId() {
@@ -101,11 +101,11 @@ public class User {
         this.updated_at = updated_at;
     }
 
-    public LoginResponse.User.Stat getStat() {
+    public User.Stat getStat() {
         return stat;
     }
 
-    public void setStat(LoginResponse.User.Stat stat) {
+    public void setStat(User.Stat stat) {
         this.stat = stat;
     }
 
@@ -119,9 +119,9 @@ public class User {
         private String created_at;
         private String updated_at;
 
-        public static LoginResponse.User.Stat objectFromData(String str) {
+        public static User.Stat objectFromData(String str) {
 
-            return new Gson().fromJson(str, LoginResponse.User.Stat.class);
+            return new Gson().fromJson(str, User.Stat.class);
         }
 
         public int getId() {

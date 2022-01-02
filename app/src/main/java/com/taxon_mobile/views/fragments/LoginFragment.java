@@ -22,7 +22,7 @@ import com.taxon_mobile.viewmodels.AuthViewModel;
 
 public class LoginFragment extends Fragment {
 
-    public static User user;
+    public static LoginResponse.User user;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -63,7 +63,6 @@ public class LoginFragment extends Fragment {
         login_btn = view.findViewById(R.id.login_btn);
         login_change_auth = view.findViewById(R.id.login_change_auth);
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-        user = new User();
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +75,9 @@ public class LoginFragment extends Fragment {
                     public void onChanged(LoginResponse loginResponse) {
                         if (loginResponse.getStatus_code() == 200) {
                             user = loginResponse.getUser();
-                            Toast.makeText(getContext(), "a", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), user.getUsername(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "b", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
