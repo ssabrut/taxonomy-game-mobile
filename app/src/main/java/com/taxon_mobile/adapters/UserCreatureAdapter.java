@@ -1,5 +1,6 @@
 package com.taxon_mobile.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.taxon_mobile.R;
 import com.taxon_mobile.models.UserCreature;
+import com.taxon_mobile.views.fragments.UserCreatureFragment;
 
 import java.util.List;
 
 public class UserCreatureAdapter extends RecyclerView.Adapter<UserCreatureAdapter.UserCreatureViewHolder> {
 
     private Context context;
-    private List<UserCreature.Species> listUserCreature;
+    public static List<UserCreature.Species> listUserCreature;
 
     public UserCreatureAdapter(Context context) {
         this.context = context;
@@ -47,6 +49,14 @@ public class UserCreatureAdapter extends RecyclerView.Adapter<UserCreatureAdapte
         Glide.with(context).load(result.getImage_path()).into(holder.user_creature_image);
         holder.user_creature_common_name.setText(result.getCommon_name());
         holder.user_creature_name.setText(result.getName());
+        holder.user_creature_description.setText(result.getDescription().substring(0, 20) + "...");
+
+        holder.user_creature_open_creature_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -56,16 +66,16 @@ public class UserCreatureAdapter extends RecyclerView.Adapter<UserCreatureAdapte
 
     public class UserCreatureViewHolder extends RecyclerView.ViewHolder {
         ImageView user_creature_image;
-        TextView user_creature_common_name, user_creature_name, user_creature_price;
-        CardView user_creature_buy_btn;
+        CardView user_creature_open_creature_btn;
+        TextView user_creature_common_name, user_creature_name, user_creature_description;
 
         public UserCreatureViewHolder(@NonNull View itemView) {
             super(itemView);
             user_creature_image = itemView.findViewById(R.id.user_creature_image);
             user_creature_common_name = itemView.findViewById(R.id.user_creature_common_name);
             user_creature_name = itemView.findViewById(R.id.user_creature_name);
-            user_creature_price = itemView.findViewById(R.id.user_creature_price);
-            user_creature_buy_btn = itemView.findViewById(R.id.user_creature_buy_btn);
+            user_creature_description = itemView.findViewById(R.id.user_creature_description);
+            user_creature_open_creature_btn = itemView.findViewById(R.id.user_creature_open_creature_btn);
         }
     }
 }

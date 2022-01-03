@@ -23,7 +23,7 @@ import java.util.List;
 
 public class CreatureAdapter extends RecyclerView.Adapter<CreatureAdapter.CreatureViewHolder> {
     private Context context;
-    private List<Creature.Creatures> listCreature;
+    public static List<Creature.Creatures> listCreature;
 
     public CreatureAdapter(Context context) {
         this.context = context;

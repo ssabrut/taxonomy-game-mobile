@@ -1,5 +1,6 @@
 package com.taxon_mobile.views.fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,7 +18,6 @@ import com.taxon_mobile.adapters.UserCreatureAdapter;
 import com.taxon_mobile.models.UserCreature;
 import com.taxon_mobile.viewmodels.SpeciesViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserCreatureFragment extends Fragment {
@@ -73,4 +73,10 @@ public class UserCreatureFragment extends Fragment {
             user_creature_rv.setAdapter(adapter);
         }
     };
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        UserCreatureAdapter.listUserCreature.clear();
+    }
 }

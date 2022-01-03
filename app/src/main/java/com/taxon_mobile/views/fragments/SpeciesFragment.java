@@ -2,6 +2,7 @@ package com.taxon_mobile.views.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -59,7 +61,6 @@ public class SpeciesFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(SpeciesViewModel.class);
         viewModel.creature("Bearer " + LoginFragment.token);
         viewModel.getCreatureDetail().observe(getViewLifecycleOwner(), showCreature);
-
         return view;
     }
 
@@ -72,4 +73,10 @@ public class SpeciesFragment extends Fragment {
             species_rv.setAdapter(adapter);
         }
     };
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        CreatureAdapter.listCreature.clear();
+    }
 }
