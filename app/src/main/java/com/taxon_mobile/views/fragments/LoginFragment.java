@@ -26,6 +26,7 @@ public class LoginFragment extends Fragment {
 
     public static LoginResponse.User user;
     public static String token;
+    public static int isLoggedIn;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -62,6 +63,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         token = "";
+        isLoggedIn = 0;
         login_input_email = view.findViewById(R.id.login_input_email);
         login_input_password = view.findViewById(R.id.login_input_password);
         login_btn = view.findViewById(R.id.login_btn);
@@ -88,6 +90,8 @@ public class LoginFragment extends Fragment {
                             editor.putInt("dna", loginResponse.getUser().getStat().getDna());
                             editor.putInt("point", loginResponse.getUser().getStat().getPoint());
                             editor.commit();
+                            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment2);
+                            isLoggedIn = 1;
                         }
                     }
                 });

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -73,6 +74,9 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+        if (LoginFragment.isLoggedIn == 1) {
+            MainActivity.main_bottom_navigation.getMenu().removeItem(R.id.loginFragment);
+        }
 
         main_canvas = view.findViewById(R.id.main_canvas);
         main_earth = view.findViewById(R.id.main_earth);
