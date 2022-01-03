@@ -54,4 +54,11 @@ public interface ApiEndPoint {
     Call<Creature> creatures(
             @Header("Authorization") String token
     );
+
+    @FormUrlEncoded
+    @POST("unlock-creature")
+    Call<Creature> unlockCreature(
+            @Header("Authorization") String token,
+            @Field("species_id") int speciesId
+    );
 }

@@ -66,4 +66,22 @@ public class SpeciesRepository {
 
         return result;
     }
+
+    public MutableLiveData<Creature> getUnlockCreature(String token, int speciesId) {
+        final MutableLiveData<Creature> result = new MutableLiveData<>();
+
+        ApiService.endPoint().unlockCreature(token, speciesId).enqueue(new Callback<Creature>() {
+            @Override
+            public void onResponse(Call<Creature> call, Response<Creature> response) {
+                result.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Creature> call, Throwable t) {
+
+            }
+        });
+
+        return result;
+    }
 }
