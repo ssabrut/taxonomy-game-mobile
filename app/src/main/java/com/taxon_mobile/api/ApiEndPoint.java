@@ -1,5 +1,6 @@
 package com.taxon_mobile.api;
 
+import com.taxon_mobile.models.Creature;
 import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.models.RegisterResponse;
 import com.taxon_mobile.models.UserCreature;
@@ -46,6 +47,11 @@ public interface ApiEndPoint {
 
     @GET("user-creatures")
     Call<UserCreature> userCreatures(
+            @Header("Authorization") String token
+    );
+
+    @GET("creatures")
+    Call<Creature> creatures(
             @Header("Authorization") String token
     );
 }

@@ -1,6 +1,7 @@
 package com.taxon_mobile.views;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -18,7 +19,7 @@ import com.taxon_mobile.views.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView main_bottom_navigation;
+    public static BottomNavigationView main_bottom_navigation;
     private NavHostFragment main_fragment_container;
     private NavController controller;
 
@@ -63,5 +64,18 @@ public class MainActivity extends AppCompatActivity {
         point = sp.getInt("point", 0);
         MainFragment.main_user_click_power.setText(String.valueOf(power));
         MainFragment.main_user_dna.setText(String.valueOf(evo));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        viewModel.saveUserStat("Bearer " + LoginFragment.token, power, evo, dna, point);
+        SharedPreferences sp = this.getSharedPreferences("UserStat", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("power", power);
+        editor.putInt("evo", evo);
+        editor.putInt("dna", dna);
+        editor.putInt("point", point);
+        editor.commit();
     }
 }

@@ -3,11 +3,18 @@
 
     <item
         android:id="@+id/mainFragment"
-        android:icon="@drawable/ic_baseline_home_24" />
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Main" />
     <item
         android:id="@+id/upgradeFragment"
-        android:icon="@drawable/upgrade" />
+        android:icon="@drawable/upgrade"
+        android:title="User Creature" />
+    <item
+        android:id="@+id/speciesFragment"
+        android:icon="@drawable/phylogenetics"
+        android:title="Species" />
     <item
         android:id="@+id/loginFragment"
-        android:icon="@drawable/ic_baseline_person_24" />
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Login" />
 </menu>

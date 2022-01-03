@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment2"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -32,4 +35,9 @@
         android:name="com.taxon_mobile.views.fragments.UserCreatureFragment"
         android:label="fragment_upgrade"
         tools:layout="@layout/fragment_user_creature" />
+    <fragment
+        android:id="@+id/speciesFragment"
+        android:name="com.taxon_mobile.views.fragments.SpeciesFragment"
+        android:label="fragment_species"
+        tools:layout="@layout/fragment_species" />
 </navigation>

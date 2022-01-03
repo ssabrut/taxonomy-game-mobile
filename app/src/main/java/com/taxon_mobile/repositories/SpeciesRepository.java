@@ -3,6 +3,7 @@ package com.taxon_mobile.repositories;
 import androidx.lifecycle.MutableLiveData;
 
 import com.taxon_mobile.api.ApiService;
+import com.taxon_mobile.models.Creature;
 import com.taxon_mobile.models.UserCreature;
 
 import java.util.ArrayList;
@@ -39,7 +40,27 @@ public class SpeciesRepository {
 
             @Override
             public void onFailure(Call<UserCreature> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
+        return result;
+    }
+
+    private List<Creature.Creatures> creatureList = new ArrayList<Creature.Creatures>();
+    public MutableLiveData<List<Creature.Creatures>> getCreatures(String token) {
+        final MutableLiveData<List<Creature.Creatures>> result = new MutableLiveData<>();
+
+        ApiService.endPoint().creatures(token).enqueue(new Callback<Creature>() {
+            @Override
+            public void onResponse(Call<Creature> call, Response<Creature> response) {
+                creatureList.addAll(response.body().getCreatures());
+                result.setValue(creatureList);
+            }
+
+            @Override
+            public void onFailure(Call<Creature> call, Throwable t) {
+                t.printStackTrace();
             }
         });
 
