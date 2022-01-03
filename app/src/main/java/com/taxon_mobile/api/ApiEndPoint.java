@@ -2,6 +2,7 @@ package com.taxon_mobile.api;
 
 import com.taxon_mobile.models.Creature;
 import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.models.Quiz;
 import com.taxon_mobile.models.RegisterResponse;
 import com.taxon_mobile.models.UserCreature;
 import com.taxon_mobile.models.User;
@@ -60,5 +61,10 @@ public interface ApiEndPoint {
     Call<Creature> unlockCreature(
             @Header("Authorization") String token,
             @Field("species_id") int speciesId
+    );
+
+    @GET("quiz")
+    Call<Quiz> quiz(
+            @Header("Authorization") String token
     );
 }

@@ -26,6 +26,10 @@ public class LoginFragment extends Fragment {
 
     public static LoginResponse.User user;
     public static String token;
+    public static int power;
+    public static int evo;
+    public static int dna;
+    public static int point;
     public static int isLoggedIn;
 
     private static final String ARG_PARAM1 = "param1";
@@ -64,6 +68,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         token = "";
         isLoggedIn = 0;
+        point = 0;
         login_input_email = view.findViewById(R.id.login_input_email);
         login_input_password = view.findViewById(R.id.login_input_password);
         login_btn = view.findViewById(R.id.login_btn);
@@ -83,6 +88,10 @@ public class LoginFragment extends Fragment {
                             System.out.println(loginResponse.getToken());
                             user = loginResponse.getUser();
                             token = loginResponse.getToken();
+                            power = user.getStat().getPower();
+                            evo = user.getStat().getEvo();
+                            dna = user.getStat().getDna();
+                            point = user.getStat().getPoint();
                             SharedPreferences sp = getContext().getSharedPreferences("UserStat", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putInt("power", loginResponse.getUser().getStat().getPower());

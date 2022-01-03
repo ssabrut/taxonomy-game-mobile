@@ -8,7 +8,11 @@
         android:id="@+id/mainFragment"
         android:name="com.taxon_mobile.views.fragments.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.taxon_mobile.views.fragments.LoginFragment"
@@ -40,4 +44,9 @@
         android:name="com.taxon_mobile.views.fragments.SpeciesFragment"
         android:label="fragment_species"
         tools:layout="@layout/fragment_species" />
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.taxon_mobile.views.fragments.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" />
 </navigation>
