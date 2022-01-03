@@ -57,10 +57,8 @@ public class SpeciesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_species, container, false);
         species_rv = view.findViewById(R.id.species_rv);
         viewModel = new ViewModelProvider(this).get(SpeciesViewModel.class);
-        if (LoginFragment.token != "") {
-            viewModel.creature("Bearer " + LoginFragment.token);
-            viewModel.getCreatureDetail().observe(getViewLifecycleOwner(), showCreature);
-        }
+        viewModel.creature("Bearer " + LoginFragment.token);
+        viewModel.getCreatureDetail().observe(getViewLifecycleOwner(), showCreature);
 
         return view;
     }

@@ -40,4 +40,10 @@ public class SpeciesViewModel extends AndroidViewModel {
     public LiveData<List<Creature.Creatures>> getCreatureDetail() {
         return resultCreature;
     }
+
+    private static MutableLiveData<Creature> resultUnlockCreature = new MutableLiveData<>();
+
+    public static void unlockCreature(String token, int speciesId) {
+        resultUnlockCreature = repository.getUnlockCreature(token, speciesId);
+    }
 }
