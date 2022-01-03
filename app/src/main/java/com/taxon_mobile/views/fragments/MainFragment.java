@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class MainFragment extends Fragment {
     private String mParam2;
 
     private ConstraintLayout main_canvas;
-    private ImageView main_earth;
+    private ImageView main_earth, main_earth_icon, main_water_icon, main_biome_bg;
     public static TextView main_user_click_power, main_user_dna;
     private CardView main_upgrade_user_click_power_btn;
     private UserStatViewModel viewModel;
@@ -82,6 +83,9 @@ public class MainFragment extends Fragment {
         main_earth = view.findViewById(R.id.main_earth);
         main_user_click_power = view.findViewById(R.id.main_user_click_power);
         main_user_dna = view.findViewById(R.id.main_user_dna);
+        main_earth_icon = view.findViewById(R.id.main_earth_icon);
+        main_water_icon = view.findViewById(R.id.main_water_icon);
+        main_biome_bg = view.findViewById(R.id.main_biome_bg);
         main_upgrade_user_click_power_btn = view.findViewById(R.id.main_upgrade_user_click_power_btn);
         viewModel = new ViewModelProvider(this).get(UserStatViewModel.class);
 
@@ -120,6 +124,26 @@ public class MainFragment extends Fragment {
                             main_user_click_power.setText(String.valueOf(stat.getPower()));
                         }
                     });
+                }
+            }
+        });
+
+        main_earth_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                main_biome_bg.setImageResource(R.drawable.galaxy);
+                main_earth.setImageResource(R.drawable.earth);
+            }
+        });
+
+        main_water_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (LoginFragment.point < 20) {
+                    Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_quizFragment);
+                } else {
+                    main_biome_bg.setImageResource(R.drawable.ocean_floor);
+                    main_earth.setImageResource(0);
                 }
             }
         });
