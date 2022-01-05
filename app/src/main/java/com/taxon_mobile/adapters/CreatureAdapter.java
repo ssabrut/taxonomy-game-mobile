@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.taxon_mobile.R;
+import com.taxon_mobile.helpers.Const;
 import com.taxon_mobile.models.Creature;
 import com.taxon_mobile.viewmodels.SpeciesViewModel;
 import com.taxon_mobile.views.MainActivity;
@@ -45,7 +46,7 @@ public class CreatureAdapter extends RecyclerView.Adapter<CreatureAdapter.Creatu
     @Override
     public void onBindViewHolder(@NonNull CreatureViewHolder holder, int position) {
         final Creature.Creatures result = getListCreature().get(position);
-        Glide.with(context).load(result.getImage_path()).into(holder.creature_image_path);
+        Glide.with(context).load(Const.IMG_URL + result.getImage_path()).into(holder.creature_image_path);
         holder.creature_common_name.setText(result.getCommon_name());
         holder.creature_name.setText(result.getName());
         holder.creature_description.setText(result.getDescription().substring(0, 20) + "...");
