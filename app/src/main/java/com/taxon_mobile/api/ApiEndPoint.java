@@ -1,6 +1,7 @@
 package com.taxon_mobile.api;
 
 import com.taxon_mobile.models.Creature;
+import com.taxon_mobile.models.Evolution;
 import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.models.Quiz;
 import com.taxon_mobile.models.RegisterResponse;
@@ -65,6 +66,11 @@ public interface ApiEndPoint {
 
     @GET("quiz")
     Call<Quiz> quiz(
+            @Header("Authorization") String token
+    );
+
+    @GET("evolutions")
+    Call<Evolution> evolution(
             @Header("Authorization") String token
     );
 }

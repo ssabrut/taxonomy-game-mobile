@@ -28,4 +28,9 @@
         android:name="com.taxon_mobile.views.fragments.QuizFragment"
         android:label="fragment_quiz"
         tools:layout="@layout/fragment_quiz" />
+    <fragment
+        android:id="@+id/evolutionFragment"
+        android:name="com.taxon_mobile.views.fragments.EvolutionFragment"
+        android:label="fragment_evolution"
+        tools:layout="@layout/fragment_evolution" />
 </navigation>

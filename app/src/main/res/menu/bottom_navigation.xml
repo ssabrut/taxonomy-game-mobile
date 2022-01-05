@@ -7,8 +7,12 @@
         android:title="Main" />
     <item
         android:id="@+id/upgradeFragment"
-        android:icon="@drawable/upgrade"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
         android:title="User Creature" />
+    <item
+        android:id="@+id/evolutionFragment"
+        android:icon="@drawable/evolution"
+        android:title="Evolution" />
     <item
         android:id="@+id/speciesFragment"
         android:icon="@drawable/phylogenetics"
