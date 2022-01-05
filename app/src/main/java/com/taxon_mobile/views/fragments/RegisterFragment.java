@@ -63,13 +63,6 @@ public class RegisterFragment extends Fragment {
         register_btn = view.findViewById(R.id.register_btn);
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
-        register_toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
-            }
-        });
-
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

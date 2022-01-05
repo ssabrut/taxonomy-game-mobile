@@ -13,8 +13,4 @@
         android:id="@+id/speciesFragment"
         android:icon="@drawable/phylogenetics"
         android:title="Species" />
-    <item
-        android:id="@+id/loginFragment"
-        android:icon="@drawable/ic_baseline_person_24"
-        android:title="Login" />
 </menu>

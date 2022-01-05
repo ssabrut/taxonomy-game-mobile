@@ -1,20 +1,18 @@
 package com.taxon_mobile.views;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.taxon_mobile.R;
+import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.viewmodels.UserStatViewModel;
-import com.taxon_mobile.views.fragments.LoginFragment;
 import com.taxon_mobile.views.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,11 +21,12 @@ public class MainActivity extends AppCompatActivity {
     private NavHostFragment main_fragment_container;
     private NavController controller;
 
+    public static LoginResponse.User user;
+    public static String token = "";
     public static int power = 0;
     public static int evo = 0;
     public static int dna = 0;
     public static int point = 0;
-
     private UserStatViewModel viewModel;
 
     @Override
@@ -44,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        viewModel.saveUserStat("Bearer " + LoginFragment.token, power, evo, dna, point);
+        viewModel.saveUserStat("Bearer " + this.token, this.power, this.evo, this.dna, this.point);
         SharedPreferences sp = this.getSharedPreferences("UserStat", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("power", power);
-        editor.putInt("evo", evo);
-        editor.putInt("dna", dna);
-        editor.putInt("point", point);
+        editor.putInt("power", this.power);
+        editor.putInt("evo", this.evo);
+        editor.putInt("dna", this.dna);
+        editor.putInt("point", this.point);
         editor.commit();
     }
 
@@ -69,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        viewModel.saveUserStat("Bearer " + LoginFragment.token, power, evo, dna, point);
+        viewModel.saveUserStat("Bearer " + this.token, this.power, this.evo, this.dna, this.point);
         SharedPreferences sp = this.getSharedPreferences("UserStat", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("power", power);
-        editor.putInt("evo", evo);
-        editor.putInt("dna", dna);
-        editor.putInt("point", point);
+        editor.putInt("power", this.power);
+        editor.putInt("evo", this.evo);
+        editor.putInt("dna", this.dna);
+        editor.putInt("point", this.point);
         editor.commit();
     }
 }

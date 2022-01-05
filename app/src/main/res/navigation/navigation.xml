@@ -14,27 +14,6 @@
             app:destination="@id/quizFragment" />
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.taxon_mobile.views.fragments.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_mainFragment2"
-            app:destination="@id/mainFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.taxon_mobile.views.fragments.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/upgradeFragment"
         android:name="com.taxon_mobile.views.fragments.UserCreatureFragment"
         android:label="fragment_upgrade"
