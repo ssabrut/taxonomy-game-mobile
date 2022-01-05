@@ -1,11 +1,13 @@
 package com.taxon_mobile.views;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -68,13 +70,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        viewModel.saveUserStat("Bearer " + this.token, this.power, this.evo, this.dna, this.point);
-        SharedPreferences sp = this.getSharedPreferences("UserStat", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("power", this.power);
-        editor.putInt("evo", this.evo);
-        editor.putInt("dna", this.dna);
-        editor.putInt("point", this.point);
-        editor.commit();
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Keluar");
+        builder.setMessage("Keluar dan simpan data?");
+        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                viewModel.saveUserStat("Bearer " + token, power, evo, dna, point);
+                SharedPreferences sp = getSharedPreferences("UserStat", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putInt("power", power);
+                editor.putInt("evo", evo);
+                editor.putInt("dna", dna);
+                editor.putInt("point", point);
+                editor.commit();
+                finish();
+            }
+        });
+        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

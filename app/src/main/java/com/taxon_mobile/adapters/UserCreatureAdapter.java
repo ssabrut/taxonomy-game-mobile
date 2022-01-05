@@ -1,12 +1,12 @@
 package com.taxon_mobile.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.taxon_mobile.R;
 import com.taxon_mobile.helpers.Const;
 import com.taxon_mobile.models.UserCreature;
-import com.taxon_mobile.views.fragments.UserCreatureFragment;
 
 import java.util.List;
 
@@ -55,7 +54,7 @@ public class UserCreatureAdapter extends RecyclerView.Adapter<UserCreatureAdapte
         holder.user_creature_open_creature_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(context, holder.user_creature_common_name.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
