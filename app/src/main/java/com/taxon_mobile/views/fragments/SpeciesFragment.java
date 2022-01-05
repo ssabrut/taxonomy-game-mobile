@@ -18,6 +18,7 @@ import com.taxon_mobile.R;
 import com.taxon_mobile.adapters.CreatureAdapter;
 import com.taxon_mobile.models.Creature;
 import com.taxon_mobile.viewmodels.SpeciesViewModel;
+import com.taxon_mobile.views.MainActivity;
 
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class SpeciesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_species, container, false);
         species_rv = view.findViewById(R.id.species_rv);
         viewModel = new ViewModelProvider(this).get(SpeciesViewModel.class);
-        viewModel.creature("Bearer " + LoginFragment.token);
+        viewModel.creature("Bearer " + MainActivity.token);
         viewModel.getCreatureDetail().observe(getViewLifecycleOwner(), showCreature);
         return view;
     }

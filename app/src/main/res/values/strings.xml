@@ -1,12 +1,17 @@
 <resources>
-    <string name="app_name">taxon-mobile</string>
+    <string name="app_name">Taxon</string>
 
-    <!--  login fragment  -->
+    <!--  choose auth activity  -->
+    <string name="login_label">Masuk</string>
+    <string name="register_label">Daftar</string>
+
+    <!--  login activity  -->
     <string name="login">Masuk</string>
     <string name="email_label">Email</string>
     <string name="email_hint">e.g johndoe@gmail.com</string>
     <string name="password_label">Password</string>
-    <string name="login_btn_label">Login</string>
+    <string name="or_label">atau</string>
+    <string name="login_btn_label">atau</string>
     <string name="change_auth">Daftar Sekarang</string>
 
     <!--  register activity  -->

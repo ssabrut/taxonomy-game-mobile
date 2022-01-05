@@ -17,6 +17,7 @@ import com.taxon_mobile.R;
 import com.taxon_mobile.adapters.UserCreatureAdapter;
 import com.taxon_mobile.models.UserCreature;
 import com.taxon_mobile.viewmodels.SpeciesViewModel;
+import com.taxon_mobile.views.MainActivity;
 
 import java.util.List;
 
@@ -56,8 +57,8 @@ public class UserCreatureFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_creature, container, false);
         user_creature_rv = view.findViewById(R.id.user_creature_rv);
         viewModel = new ViewModelProvider(this).get(SpeciesViewModel.class);
-        if (LoginFragment.token != "") {
-            viewModel.userCreature("Bearer " + LoginFragment.token);
+        if (MainActivity.token != "") {
+            viewModel.userCreature("Bearer " + MainActivity.token);
             viewModel.getUserCreatureDetail().observe(getViewLifecycleOwner(), showUserCreature);
         }
 

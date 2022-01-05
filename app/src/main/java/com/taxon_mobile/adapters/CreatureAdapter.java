@@ -6,18 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.taxon_mobile.R;
 import com.taxon_mobile.models.Creature;
 import com.taxon_mobile.viewmodels.SpeciesViewModel;
-import com.taxon_mobile.views.fragments.LoginFragment;
+import com.taxon_mobile.views.MainActivity;
 
 import java.util.List;
 
@@ -56,7 +54,7 @@ public class CreatureAdapter extends RecyclerView.Adapter<CreatureAdapter.Creatu
         holder.creature_buy_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SpeciesViewModel.unlockCreature("Bearer " + LoginFragment.token, result.getId());
+                SpeciesViewModel.unlockCreature("Bearer " + MainActivity.token, result.getId());
             }
         });
     }

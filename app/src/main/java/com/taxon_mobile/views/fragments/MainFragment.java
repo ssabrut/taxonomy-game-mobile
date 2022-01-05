@@ -62,23 +62,8 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        if (LoginFragment.user != null) {
-            MainActivity.power = LoginFragment.user.getStat().getPower();
-            MainActivity.evo = LoginFragment.user.getStat().getEvo();
-            MainActivity.dna = LoginFragment.user.getStat().getDna();
-            MainActivity.point = LoginFragment.user.getStat().getPoint();
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        if (LoginFragment.isLoggedIn == 1) {
-            MainActivity.main_bottom_navigation.getMenu().removeItem(R.id.loginFragment);
-        }
-
         main_canvas = view.findViewById(R.id.main_canvas);
         main_earth = view.findViewById(R.id.main_earth);
         main_user_click_power = view.findViewById(R.id.main_user_click_power);
@@ -114,9 +99,8 @@ public class MainFragment extends Fragment {
         main_upgrade_user_click_power_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (LoginFragment.token != "") {
-                    String token = LoginFragment.token;
-                    viewModel.upgradePower("Bearer " + token);
+                if (MainActivity.token != "") {
+                    viewModel.upgradePower("Bearer " + MainActivity.token);
                     viewModel.getUpgradePowerDetails().observe(getViewLifecycleOwner(), new Observer<User.Stat>() {
                         @Override
                         public void onChanged(User.Stat stat) {
@@ -139,7 +123,7 @@ public class MainFragment extends Fragment {
         main_water_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (LoginFragment.point < 20) {
+                if (MainActivity.point < 20) {
                     Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_quizFragment);
                 } else {
                     main_biome_bg.setImageResource(R.drawable.ocean_floor);

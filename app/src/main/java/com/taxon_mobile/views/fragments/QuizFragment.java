@@ -72,7 +72,7 @@ public class QuizFragment extends Fragment {
         answers = new ArrayList<>();
         keys = new ArrayList<>();
         viewModel = new ViewModelProvider(this).get(QuizViewModel.class);
-        viewModel.quiz("Bearer " + LoginFragment.token);
+        viewModel.quiz("Bearer " + MainActivity.token);
         viewModel.getQuizDetail().observe(getViewLifecycleOwner(), showQuiz);
 
         quiz_submit_btn.setOnClickListener(new View.OnClickListener() {
@@ -98,12 +98,12 @@ public class QuizFragment extends Fragment {
 
                 for (int i = 0; i < keys.size(); i++) {
                     if (answers.get(i).equalsIgnoreCase(keys.get(i))) {
-                        LoginFragment.point += 10;
+                        MainActivity.point += 10;
                     }
                 }
 
                 UserStatViewModel statViewModel = new ViewModelProvider(getActivity()).get(UserStatViewModel.class);
-                statViewModel.saveUserStat("Bearer " + LoginFragment.token, LoginFragment.power, LoginFragment.evo, LoginFragment.dna, LoginFragment.point);
+                statViewModel.saveUserStat("Bearer " + MainActivity.token, MainActivity.power, MainActivity.evo, MainActivity.dna, MainActivity.point);
             }
         });
 
