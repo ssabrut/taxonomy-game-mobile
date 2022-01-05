@@ -17,7 +17,11 @@
         android:id="@+id/upgradeFragment"
         android:name="com.taxon_mobile.views.fragments.UserCreatureFragment"
         android:label="fragment_upgrade"
-        tools:layout="@layout/fragment_user_creature" />
+        tools:layout="@layout/fragment_user_creature" >
+        <action
+            android:id="@+id/action_upgradeFragment_to_userCreatureDetailFragment"
+            app:destination="@id/userCreatureDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/speciesFragment"
         android:name="com.taxon_mobile.views.fragments.SpeciesFragment"
@@ -27,10 +31,19 @@
         android:id="@+id/quizFragment"
         android:name="com.taxon_mobile.views.fragments.QuizFragment"
         android:label="fragment_quiz"
-        tools:layout="@layout/fragment_quiz" />
+        tools:layout="@layout/fragment_quiz" >
+        <action
+            android:id="@+id/action_quizFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/evolutionFragment"
         android:name="com.taxon_mobile.views.fragments.EvolutionFragment"
         android:label="fragment_evolution"
         tools:layout="@layout/fragment_evolution" />
+    <fragment
+        android:id="@+id/userCreatureDetailFragment"
+        android:name="com.taxon_mobile.views.fragments.UserCreatureDetailFragment"
+        android:label="fragment_user_creature_detail"
+        tools:layout="@layout/fragment_user_creature_detail" />
 </navigation>

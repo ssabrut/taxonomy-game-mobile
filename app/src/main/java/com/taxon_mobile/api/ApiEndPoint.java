@@ -5,6 +5,7 @@ import com.taxon_mobile.models.Evolution;
 import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.models.Quiz;
 import com.taxon_mobile.models.RegisterResponse;
+import com.taxon_mobile.models.ShowUserCreature;
 import com.taxon_mobile.models.UserCreature;
 import com.taxon_mobile.models.User;
 
@@ -14,6 +15,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiEndPoint {
     @FormUrlEncoded
@@ -55,6 +58,12 @@ public interface ApiEndPoint {
     @GET("creatures")
     Call<Creature> creatures(
             @Header("Authorization") String token
+    );
+
+    @GET("creatures/{species_id}")
+    Call<ShowUserCreature> showCreature(
+            @Header("Authorization") String token,
+            @Path(value = "species_id", encoded = true) String speciesId
     );
 
     @FormUrlEncoded

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.taxon_mobile.models.Creature;
+import com.taxon_mobile.models.ShowUserCreature;
 import com.taxon_mobile.models.UserCreature;
 import com.taxon_mobile.repositories.SpeciesRepository;
 
@@ -43,5 +44,15 @@ public class SpeciesViewModel extends AndroidViewModel {
 
     public static void unlockCreature(String token, int speciesId) {
         repository.getUnlockCreature(token, speciesId);
+    }
+
+    private MutableLiveData<ShowUserCreature> resultShowCreature = new MutableLiveData<>();
+
+    public void showCreature(String token, String speciesId) {
+        resultShowCreature = repository.showCreature(token, speciesId);
+    }
+
+    public LiveData<ShowUserCreature> getShowCreatureDetail() {
+        return resultShowCreature;
     }
 }

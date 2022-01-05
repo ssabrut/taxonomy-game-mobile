@@ -1,10 +1,13 @@
 package com.taxon_mobile.views.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -104,6 +107,14 @@ public class QuizFragment extends Fragment {
 
                 UserStatViewModel statViewModel = new ViewModelProvider(getActivity()).get(UserStatViewModel.class);
                 statViewModel.saveUserStat("Bearer " + MainActivity.token, MainActivity.power, MainActivity.evo, MainActivity.dna, MainActivity.point);
+                SharedPreferences sp = getContext().getSharedPreferences("UserStat", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putInt("power", MainActivity.power);
+                editor.putInt("evo", MainActivity.evo);
+                editor.putInt("dna", MainActivity.dna);
+                editor.putInt("point", MainActivity.point);
+                editor.commit();
+                Navigation.findNavController(view).navigate(R.id.action_quizFragment_to_mainFragment);
             }
         });
 
