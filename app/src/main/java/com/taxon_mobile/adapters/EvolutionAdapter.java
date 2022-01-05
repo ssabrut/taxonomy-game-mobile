@@ -52,7 +52,7 @@ public class EvolutionAdapter extends RecyclerView.Adapter<EvolutionAdapter.Evol
 
     @Override
     public int getItemCount() {
-        return 0;
+        return getListEvolution().size();
     }
 
     public class EvolutionViewHolder extends RecyclerView.ViewHolder {
