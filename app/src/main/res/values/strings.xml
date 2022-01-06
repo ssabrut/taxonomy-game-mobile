@@ -27,4 +27,5 @@
 
     <!--  main fragment  -->
     <string name="click_power_placeholder">Click Power</string>
+    <string name="logout_dialog_label">Logout</string>
 </resources>

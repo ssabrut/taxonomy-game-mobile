@@ -3,6 +3,7 @@ package com.taxon_mobile.api;
 import com.taxon_mobile.models.Creature;
 import com.taxon_mobile.models.Evolution;
 import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.models.LogoutResponse;
 import com.taxon_mobile.models.Quiz;
 import com.taxon_mobile.models.RegisterResponse;
 import com.taxon_mobile.models.ShowUserCreature;
@@ -33,6 +34,11 @@ public interface ApiEndPoint {
             @Field("username") String username,
             @Field("email") String email,
             @Field("password") String password
+    );
+
+    @POST("logout")
+    Call<LogoutResponse> logout(
+            @Header("Authorization") String token
     );
 
     @GET("upgrade-power")

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.models.LogoutResponse;
 import com.taxon_mobile.models.RegisterResponse;
 import com.taxon_mobile.repositories.AuthRepository;
 
@@ -35,4 +36,13 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
     public LiveData<RegisterResponse> getRegisterDetails() { return resultRegister; }
+
+    private MutableLiveData<LogoutResponse> resultLogout = new MutableLiveData<>();
+    public void logout(String token) {
+        resultLogout = repository.logout(token);
+    }
+
+    public LiveData<LogoutResponse> getLogoutDetail() {
+        return resultLogout;
+    }
 }
