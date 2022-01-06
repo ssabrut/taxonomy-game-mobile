@@ -22,13 +22,13 @@ public class SpeciesViewModel extends AndroidViewModel {
         repository = SpeciesRepository.getInstance();
     }
 
-    private MutableLiveData<List<UserCreature.Species>> resultUserCreature = new MutableLiveData<>();
+    private MutableLiveData<List<UserCreature.UserCreatures>> resultUserCreature = new MutableLiveData<>();
 
     public void userCreature(String token) {
         resultUserCreature = repository.getUserCreature(token);
     }
 
-    public LiveData<List<UserCreature.Species>> getUserCreatureDetail() {
+    public LiveData<List<UserCreature.UserCreatures>> getUserCreatureDetail() {
         return resultUserCreature;
     }
 

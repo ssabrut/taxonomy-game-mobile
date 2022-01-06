@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.taxon_mobile.R;
 import com.taxon_mobile.adapters.QuizAdapter;
+import com.taxon_mobile.helpers.IOnBackPressed;
 import com.taxon_mobile.models.Quiz;
 import com.taxon_mobile.viewmodels.QuizViewModel;
 import com.taxon_mobile.viewmodels.UserStatViewModel;
@@ -29,7 +30,7 @@ import com.taxon_mobile.views.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuizFragment extends Fragment {
+public class QuizFragment extends Fragment implements IOnBackPressed {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -74,6 +75,7 @@ public class QuizFragment extends Fragment {
         quiz_submit_btn = view.findViewById(R.id.quiz_submit_btn);
         answers = new ArrayList<>();
         keys = new ArrayList<>();
+        MainActivity.counter = 0;
         viewModel = new ViewModelProvider(this).get(QuizViewModel.class);
         viewModel.quiz("Bearer " + MainActivity.token);
         viewModel.getQuizDetail().observe(getViewLifecycleOwner(), showQuiz);
@@ -135,5 +137,11 @@ public class QuizFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         QuizAdapter.listQuiz.clear();
+    }
+
+
+    @Override
+    public boolean onBackPresed() {
+        return true;
     }
 }

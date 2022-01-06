@@ -28,14 +28,14 @@ public class SpeciesRepository {
         return repository;
     }
 
-    private List<UserCreature.Species> userCreatureList = new ArrayList<>();
-    public MutableLiveData<List<UserCreature.Species>> getUserCreature(String token) {
-        final MutableLiveData<List<UserCreature.Species>> result = new MutableLiveData<>();
+    private List<UserCreature.UserCreatures> userCreatureList = new ArrayList<>();
+    public MutableLiveData<List<UserCreature.UserCreatures>> getUserCreature(String token) {
+        final MutableLiveData<List<UserCreature.UserCreatures>> result = new MutableLiveData<>();
 
         ApiService.endPoint().userCreatures(token).enqueue(new Callback<UserCreature>() {
             @Override
             public void onResponse(Call<UserCreature> call, Response<UserCreature> response) {
-                userCreatureList.addAll(response.body().getSpecies());
+                userCreatureList.addAll(response.body().getUserCreatures());
                 result.setValue(userCreatureList);
             }
 

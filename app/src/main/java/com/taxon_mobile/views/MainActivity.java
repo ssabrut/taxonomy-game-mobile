@@ -2,24 +2,21 @@ package com.taxon_mobile.views;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.taxon_mobile.R;
+import com.taxon_mobile.helpers.IOnBackPressed;
 import com.taxon_mobile.models.LoginResponse;
-import com.taxon_mobile.viewmodels.AuthViewModel;
 import com.taxon_mobile.viewmodels.UserStatViewModel;
-import com.taxon_mobile.views.activities.LoginActivity;
 import com.taxon_mobile.views.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static int evo = 0;
     public static int dna = 0;
     public static int point = 0;
+    public static int counter = 0;
     private UserStatViewModel viewModel;
 
     @Override
@@ -74,33 +72,42 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Keluar");
-        builder.setMessage("Keluar dan simpan data?");
-        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                viewModel.saveUserStat("Bearer " + token, power, evo, dna, point);
-                SharedPreferences sp = getSharedPreferences("UserStat", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putInt("power", power);
-                editor.putInt("evo", evo);
-                editor.putInt("dna", dna);
-                editor.putInt("point", point);
-                editor.commit();
-                finish();
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.quizFragment);
+        if (counter == 0) {
+            if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPresed()) {
+                counter = 1;
+                super.onBackPressed();
             }
-        });
-        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Keluar");
+            builder.setMessage("Keluar dan simpan data?");
+            builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    viewModel.saveUserStat("Bearer " + token, power, evo, dna, point);
+                    SharedPreferences sp = getSharedPreferences("UserStat", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putInt("power", power);
+                    editor.putInt("evo", evo);
+                    editor.putInt("dna", dna);
+                    editor.putInt("point", point);
+                    editor.commit();
+                    finish();
+                }
+            });
+            builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
+
 
     public static void saveUserStat() {
 
