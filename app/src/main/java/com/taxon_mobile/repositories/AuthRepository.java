@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.taxon_mobile.api.ApiService;
 import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.models.LogoutResponse;
 import com.taxon_mobile.models.RegisterResponse;
 
 import retrofit2.Call;
@@ -55,6 +56,24 @@ public class AuthRepository {
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) { t.printStackTrace(); }
 
+        });
+
+        return result;
+    }
+
+    public MutableLiveData<LogoutResponse> logout(String token) {
+        final MutableLiveData<LogoutResponse> result = new MutableLiveData<>();
+
+        ApiService.endPoint().logout(token).enqueue(new Callback<LogoutResponse>() {
+            @Override
+            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                result.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<LogoutResponse> call, Throwable t) {
+
+            }
         });
 
         return result;
