@@ -24,17 +24,17 @@ import java.util.List;
 public class UserCreatureAdapter extends RecyclerView.Adapter<UserCreatureAdapter.UserCreatureViewHolder> {
 
     private Context context;
-    public static List<UserCreature.Species> listUserCreature;
+    public static List<UserCreature.UserCreatures> listUserCreature;
 
     public UserCreatureAdapter(Context context) {
         this.context = context;
     }
 
-    private List<UserCreature.Species> getListUserCreature() {
+    private List<UserCreature.UserCreatures> getListUserCreature() {
         return listUserCreature;
     }
 
-    public void setListUserCreature(List<UserCreature.Species> listUserCreature) {
+    public void setListUserCreature(List<UserCreature.UserCreatures> listUserCreature) {
         this.listUserCreature = listUserCreature;
     }
 
@@ -47,7 +47,7 @@ public class UserCreatureAdapter extends RecyclerView.Adapter<UserCreatureAdapte
 
     @Override
     public void onBindViewHolder(@NonNull UserCreatureViewHolder holder, int position) {
-        final UserCreature.Species result = getListUserCreature().get(position);
+        final UserCreature.UserCreatures result = getListUserCreature().get(position);
         Glide.with(context).load(Const.IMG_URL + result.getImage_path()).into(holder.user_creature_image);
         holder.user_creature_common_name.setText(result.getCommon_name());
         holder.user_creature_name.setText(result.getName());

@@ -66,9 +66,9 @@ public class UserCreatureFragment extends Fragment {
         return view;
     }
 
-    private Observer<List<UserCreature.Species>> showUserCreature = new Observer<List<UserCreature.Species>>() {
+    private Observer<List<UserCreature.UserCreatures>> showUserCreature = new Observer<List<UserCreature.UserCreatures>>() {
         @Override
-        public void onChanged(List<UserCreature.Species> userCreature) {
+        public void onChanged(List<UserCreature.UserCreatures> userCreature) {
             user_creature_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
             UserCreatureAdapter adapter = new UserCreatureAdapter(getActivity().getApplicationContext());
             adapter.setListUserCreature(userCreature);
