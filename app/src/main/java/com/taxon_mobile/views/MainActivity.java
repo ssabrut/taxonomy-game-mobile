@@ -2,19 +2,24 @@ package com.taxon_mobile.views;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.taxon_mobile.R;
 import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.viewmodels.AuthViewModel;
 import com.taxon_mobile.viewmodels.UserStatViewModel;
+import com.taxon_mobile.views.activities.LoginActivity;
 import com.taxon_mobile.views.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
