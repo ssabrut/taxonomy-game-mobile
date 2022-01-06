@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,6 +17,8 @@ import com.taxon_mobile.R;
 import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.viewmodels.AuthViewModel;
 import com.taxon_mobile.views.MainActivity;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -47,22 +48,30 @@ public class LoginActivity extends AppCompatActivity {
                     viewModel.getLoginDetails().observe(LoginActivity.this, new Observer<LoginResponse>() {
                         @Override
                         public void onChanged(LoginResponse loginResponse) {
-                            MainActivity.user = loginResponse.getUser();
-                            MainActivity.token = loginResponse.getToken();
-                            MainActivity.power = MainActivity.user.getStat().getPower();
-                            MainActivity.evo = MainActivity.user.getStat().getEvo();
-                            MainActivity.dna = MainActivity.user.getStat().getDna();
-                            MainActivity.point = MainActivity.user.getStat().getPoint();
-                            SharedPreferences sp = getSharedPreferences("UserStat", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sp.edit();
-                            editor.putInt("power", MainActivity.power);
-                            editor.putInt("evo", MainActivity.evo);
-                            editor.putInt("dna", MainActivity.dna);
-                            editor.putInt("point", MainActivity.point);
-                            editor.commit();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                            if (loginResponse.getStatus_code() == 200) {
+                                try {
+                                    MainActivity.user = loginResponse.getUser();
+                                    MainActivity.token = loginResponse.getToken();
+                                    MainActivity.power = MainActivity.user.getStat().getPower();
+                                    MainActivity.evo = MainActivity.user.getStat().getEvo();
+                                    MainActivity.dna = MainActivity.user.getStat().getDna();
+                                    MainActivity.point = MainActivity.user.getStat().getPoint();
+                                    SharedPreferences sp = getSharedPreferences("UserStat", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sp.edit();
+                                    editor.putInt("power", MainActivity.power);
+                                    editor.putInt("evo", MainActivity.evo);
+                                    editor.putInt("dna", MainActivity.dna);
+                                    editor.putInt("point", MainActivity.point);
+                                    editor.putString("email", email);
+                                    editor.putString("password", password);
+                                    editor.commit();
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     });
                 }
