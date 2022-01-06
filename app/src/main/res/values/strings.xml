@@ -27,5 +27,7 @@
 
     <!--  main fragment  -->
     <string name="click_power_placeholder">Click Power</string>
-    <string name="logout_dialog_label">Logout</string>
+    <string name="logout_dialog_label">Keluar</string>
+    <string name="cancel_quiz_dialog_label">Tutup</string>
+    <string name="accept_quiz_dialog_label">Ambil Kuis</string>
 </resources>

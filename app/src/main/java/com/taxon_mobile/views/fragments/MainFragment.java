@@ -23,7 +23,6 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.taxon_mobile.R;
 import com.taxon_mobile.models.LogoutResponse;
@@ -43,11 +42,12 @@ public class MainFragment extends Fragment {
 
     private ConstraintLayout main_canvas;
     private ImageView main_earth, main_earth_icon, main_water_icon, main_biome_bg, main_setting_btn;
-    public static TextView main_user_click_power, main_user_dna;
+    public static TextView main_user_click_power, main_user_dna, quiz_content;
     private CardView main_upgrade_user_click_power_btn;
     private UserStatViewModel viewModel;
-    private Dialog settingDialog;
-    private Button option_logout_btn;
+    private Dialog settingDialog, quizDialog;
+    private Button option_logout_btn, quiz_cancel_btn, quiz_accept_btn;
+    private View foo;
 
     public MainFragment() {
     }
@@ -73,6 +73,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+        foo = view;
         main_canvas = view.findViewById(R.id.main_canvas);
         main_earth = view.findViewById(R.id.main_earth);
         main_setting_btn = view.findViewById(R.id.main_setting_btn);
@@ -84,7 +85,9 @@ public class MainFragment extends Fragment {
         main_upgrade_user_click_power_btn = view.findViewById(R.id.main_upgrade_user_click_power_btn);
         viewModel = new ViewModelProvider(this).get(UserStatViewModel.class);
         settingDialog = new Dialog(getActivity());
+        quizDialog = new Dialog(getActivity());
         settingDialog();
+        quizDialog();
 
         main_user_click_power.setText(String.valueOf(MainActivity.power));
         main_user_dna.setText(String.valueOf(MainActivity.evo));
@@ -136,7 +139,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (MainActivity.point < 20) {
-                    Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_quizFragment);
+                    quizDialog.show();
                 } else {
                     main_biome_bg.setImageResource(R.drawable.ocean_floor);
                     main_earth.setImageResource(0);
@@ -182,6 +185,32 @@ public class MainFragment extends Fragment {
                         }
                     }
                 });
+            }
+        });
+    }
+
+    private void quizDialog() {
+        quizDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        quizDialog.setContentView(R.layout.quiz_confirmation_dialog);
+        quizDialog.setCancelable(true);
+
+        quiz_content = quizDialog.findViewById(R.id.quiz_content);
+        quiz_cancel_btn = quizDialog.findViewById(R.id.quiz_cancel_btn);
+        quiz_accept_btn = quizDialog.findViewById(R.id.quiz_accept_btn);
+
+        quiz_content.setText("Saat ini point kamu " + MainActivity.point + ", untuk akses bioma selanjutnya kamu butuh 20 point!");
+        quiz_cancel_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                quizDialog.dismiss();
+            }
+        });
+
+        quiz_accept_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(foo).navigate(R.id.action_mainFragment_to_quizFragment);
+                quizDialog.dismiss();
             }
         });
     }
