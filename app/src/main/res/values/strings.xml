@@ -30,6 +30,7 @@
     <string name="logout_dialog_label">Keluar</string>
     <string name="cancel_quiz_dialog_label">Tutup</string>
     <string name="accept_quiz_dialog_label">Ambil Kuis</string>
+    <string name="finish_quiz">Selesai</string>
 
     <!--  user creature detail fragment  -->
     <string name="classification_label">Klasifikasi</string>
