@@ -2,6 +2,7 @@ package com.taxon_mobile.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.taxon_mobile.R;
 import com.taxon_mobile.helpers.Const;
 import com.taxon_mobile.models.UserCreature;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserCreatureAdapter extends RecyclerView.Adapter<UserCreatureAdapter.UserCreatureViewHolder> {
@@ -58,6 +60,7 @@ public class UserCreatureAdapter extends RecyclerView.Adapter<UserCreatureAdapte
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("speciesId", result.getId());
+                bundle.putParcelableArrayList("creatureEvolutions", (ArrayList<? extends Parcelable>) result.getEvolutions());
                 Navigation.findNavController(view).navigate(R.id.action_upgradeFragment_to_userCreatureDetailFragment, bundle);
             }
         });
