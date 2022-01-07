@@ -22,8 +22,6 @@
     <string name="register_email_label">Email</string>
     <string name="register_password_label">Password</string>
     <string name="register_btn_label">Daftar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--  main fragment  -->
     <string name="click_power_placeholder">Click Power</string>
@@ -32,7 +30,16 @@
     <string name="accept_quiz_dialog_label">Ambil Kuis</string>
     <string name="finish_quiz">Selesai</string>
 
+    <!--  user creature fragment  -->
+    <string name="user_creature_title">Spesies Kamu</string>
+
     <!--  user creature detail fragment  -->
     <string name="classification_label">Klasifikasi</string>
-    <string name="evolution_label">Evolutions</string>
+    <string name="evolution_label">Evolusi</string>
+
+    <!--  evolution fragment  -->
+    <string name="evolution_title">Evolusi</string>
+
+    <!--  species fragment  -->
+    <string name="creature_title">Spesies</string>
 </resources>
