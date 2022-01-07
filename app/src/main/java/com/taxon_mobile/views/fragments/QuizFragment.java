@@ -3,10 +3,8 @@ package com.taxon_mobile.views.fragments;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -21,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,9 +32,7 @@ import com.taxon_mobile.viewmodels.UserStatViewModel;
 import com.taxon_mobile.views.MainActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class QuizFragment extends Fragment implements IOnBackPressed {
 
@@ -207,7 +202,7 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
 
     private void quizFeedbackDialog() {
         quizFeedbackDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        quizFeedbackDialog.setContentView(R.layout.quiz_feedback_dialog);
+        quizFeedbackDialog.setContentView(R.layout.dialog_quiz_feedback);
         quizFeedbackDialog.getWindow().setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT

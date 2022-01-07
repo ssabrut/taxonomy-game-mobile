@@ -29,6 +29,8 @@
     <string name="cancel_quiz_dialog_label">Tutup</string>
     <string name="accept_quiz_dialog_label">Ambil Kuis</string>
     <string name="finish_quiz">Selesai</string>
+    <string name="earth_dialog">Bumi</string>
+    <string name="sea_dialog">Bioma Laut</string>
 
     <!--  user creature fragment  -->
     <string name="user_creature_title">Spesies Kamu</string>

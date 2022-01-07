@@ -41,11 +41,11 @@ public class MainFragment extends Fragment {
     private String mParam2;
 
     private ConstraintLayout main_canvas;
-    private ImageView main_earth, main_earth_icon, main_water_icon, main_biome_bg, main_setting_btn;
+    private ImageView main_earth, main_earth_icon, main_biome_bg, main_setting_btn;
     public static TextView main_user_click_power, main_user_dna, quiz_content;
-    private CardView main_upgrade_user_click_power_btn;
+    private CardView main_upgrade_user_click_power_btn, earth_btn, sea_btn;
     private UserStatViewModel viewModel;
-    private Dialog settingDialog, quizDialog;
+    private Dialog settingDialog, quizDialog, biome_dialog;
     private Button option_logout_btn, quiz_cancel_btn, quiz_accept_btn;
     private View foo;
 
@@ -80,14 +80,15 @@ public class MainFragment extends Fragment {
         main_user_click_power = view.findViewById(R.id.main_user_click_power);
         main_user_dna = view.findViewById(R.id.main_user_dna);
         main_earth_icon = view.findViewById(R.id.main_earth_icon);
-        main_water_icon = view.findViewById(R.id.main_water_icon);
         main_biome_bg = view.findViewById(R.id.main_biome_bg);
         main_upgrade_user_click_power_btn = view.findViewById(R.id.main_upgrade_user_click_power_btn);
         viewModel = new ViewModelProvider(this).get(UserStatViewModel.class);
         settingDialog = new Dialog(getActivity());
         quizDialog = new Dialog(getActivity());
+        biome_dialog = new Dialog(getActivity());
         settingDialog();
         quizDialog();
+        biomeDialog();
 
         main_user_click_power.setText(String.valueOf(MainActivity.power));
         main_user_dna.setText(String.valueOf(MainActivity.evo));
@@ -130,22 +131,10 @@ public class MainFragment extends Fragment {
         main_earth_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                main_biome_bg.setImageResource(R.drawable.galaxy);
-                main_earth.setImageResource(R.drawable.earth);
+                biome_dialog.show();
             }
         });
 
-        main_water_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (MainActivity.point < 20) {
-                    quizDialog.show();
-                } else {
-                    main_biome_bg.setImageResource(R.drawable.ocean_floor);
-                    main_earth.setImageResource(0);
-                }
-            }
-        });
 
         main_setting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +148,7 @@ public class MainFragment extends Fragment {
 
     private void settingDialog() {
         settingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        settingDialog.setContentView(R.layout.option_dialog);
+        settingDialog.setContentView(R.layout.dialog_option);
         settingDialog.setCancelable(true);
 
         option_logout_btn = settingDialog.findViewById(R.id.option_logout_btn);
@@ -191,7 +180,7 @@ public class MainFragment extends Fragment {
 
     private void quizDialog() {
         quizDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        quizDialog.setContentView(R.layout.quiz_confirmation_dialog);
+        quizDialog.setContentView(R.layout.dialog_quiz_confirmation);
         quizDialog.setCancelable(true);
 
         quiz_content = quizDialog.findViewById(R.id.quiz_content);
@@ -211,6 +200,36 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 Navigation.findNavController(foo).navigate(R.id.action_mainFragment_to_quizFragment);
                 quizDialog.dismiss();
+            }
+        });
+    }
+
+    private void biomeDialog() {
+        biome_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        biome_dialog.setContentView(R.layout.dialog_biome);
+        biome_dialog.setCancelable(true);
+
+        earth_btn = biome_dialog.findViewById(R.id.earth_btn);
+        sea_btn = biome_dialog.findViewById(R.id.sea_btn);
+        earth_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                main_biome_bg.setImageResource(R.drawable.galaxy);
+                main_earth.setImageResource(R.drawable.earth);
+                biome_dialog.dismiss();
+            }
+        });
+
+        sea_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.point < 20) {
+                    quizDialog.show();
+                } else {
+                    main_biome_bg.setImageResource(R.drawable.ocean_floor);
+                    main_earth.setImageResource(0);
+                }
+                biome_dialog.dismiss();
             }
         });
     }
