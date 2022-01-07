@@ -61,6 +61,13 @@ public interface ApiEndPoint {
             @Header("Authorization") String token
     );
 
+    @FormUrlEncoded
+    @POST("user-evolutions")
+    Call<Evolution> unlockEvolution(
+            @Header("Authorization") String token,
+            @Field("evolution_id") int evolutionId
+    );
+
     @GET("creatures")
     Call<Creature> creatures(
             @Header("Authorization") String token
