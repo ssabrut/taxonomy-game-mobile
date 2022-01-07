@@ -29,4 +29,8 @@ public class EvolutionViewModel extends AndroidViewModel {
     public LiveData<List<Evolution.Evolutions>> getEvolutionDetail() {
         return resultEvolution;
     }
+
+    public static void unlockEvolution(String token, int evolutionId) {
+        repository.unlockEvolution(token, evolutionId);
+    }
 }

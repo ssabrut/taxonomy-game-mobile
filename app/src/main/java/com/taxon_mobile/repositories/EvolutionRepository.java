@@ -46,4 +46,22 @@ public class EvolutionRepository {
 
         return result;
     }
+
+    public MutableLiveData<Evolution> unlockEvolution(String token, int evolutionId) {
+        final MutableLiveData<Evolution> result = new MutableLiveData();
+
+        ApiService.endPoint().unlockEvolution(token, evolutionId).enqueue(new Callback<Evolution>() {
+            @Override
+            public void onResponse(Call<Evolution> call, Response<Evolution> response) {
+                result.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Evolution> call, Throwable t) {
+
+            }
+        });
+
+        return result;
+    }
 }
