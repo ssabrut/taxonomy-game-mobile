@@ -1,5 +1,8 @@
 package com.taxon_mobile.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 public class UserCreature {
@@ -125,7 +128,7 @@ public class UserCreature {
             this.evolutions = evolutions;
         }
 
-        public static class Evolutions {
+        public static class Evolutions implements Parcelable {
             private int id;
             private int species_id;
             private String name;
@@ -135,6 +138,29 @@ public class UserCreature {
             private Object prerequisite_id;
             private String created_at;
             private String updated_at;
+
+            protected Evolutions(Parcel in) {
+                id = in.readInt();
+                species_id = in.readInt();
+                name = in.readString();
+                description = in.readString();
+                image_path = in.readString();
+                price = in.readInt();
+                created_at = in.readString();
+                updated_at = in.readString();
+            }
+
+            public static final Creator<Evolutions> CREATOR = new Creator<Evolutions>() {
+                @Override
+                public Evolutions createFromParcel(Parcel in) {
+                    return new Evolutions(in);
+                }
+
+                @Override
+                public Evolutions[] newArray(int size) {
+                    return new Evolutions[size];
+                }
+            };
 
             public static Evolutions objectFromData(String str) {
 
@@ -211,6 +237,23 @@ public class UserCreature {
 
             public void setUpdated_at(String updated_at) {
                 this.updated_at = updated_at;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel parcel, int i) {
+                parcel.writeInt(id);
+                parcel.writeInt(species_id);
+                parcel.writeString(name);
+                parcel.writeString(description);
+                parcel.writeString(image_path);
+                parcel.writeInt(price);
+                parcel.writeString(created_at);
+                parcel.writeString(updated_at);
             }
         }
     }
