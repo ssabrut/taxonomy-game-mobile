@@ -15,7 +15,8 @@
     <string name="change_auth">Daftar Sekarang</string>
 
     <!--  register activity  -->
-    <string name="register">Daftar</string>
+    <string name="register">Data Pribadi</string>
+    <string name="register_account">Buat Akun</string>
     <string name="name_label">Nama Lengkap</string>
     <string name="school_label">Asal Sekolah</string>
     <string name="city_label">Asal Kota</string>
@@ -23,6 +24,7 @@
     <string name="username_label">Username</string>
     <string name="register_email_label">Email</string>
     <string name="register_password_label">Password</string>
+    <string name="register_next">Selanjutnya</string>
 
     <!--  main fragment  -->
     <string name="click_power_placeholder">Click Power</string>

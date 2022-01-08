@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Taxonmobile"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".views.activities.RegisterAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.activities.RegisterActivity"
             android:exported="false" />
         <activity
@@ -26,9 +29,7 @@
         </activity>
         <activity
             android:name=".views.activities.LoginActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".views.MainActivity"
             android:exported="true" />

@@ -22,6 +22,7 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
     private MutableLiveData<LoginResponse> resultLogin = new MutableLiveData<>();
+
     public void login(String email, String password) {
         resultLogin = repository.login(email, password);
     }
@@ -31,13 +32,17 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
     private MutableLiveData<RegisterResponse> resultRegister = new MutableLiveData<>();
-    public void register(String name, String username, String email, String password){
-        resultRegister = repository.register(name, username, email, password);
+
+    public void register(String name, String username, String school, String city, String birthYear, String email, String password) {
+        resultRegister = repository.register(name, username, school, city, birthYear, email, password);
     }
 
-    public LiveData<RegisterResponse> getRegisterDetails() { return resultRegister; }
+    public LiveData<RegisterResponse> getRegisterDetails() {
+        return resultRegister;
+    }
 
     private MutableLiveData<LogoutResponse> resultLogout = new MutableLiveData<>();
+
     public void logout(String token) {
         resultLogout = repository.logout(token);
     }

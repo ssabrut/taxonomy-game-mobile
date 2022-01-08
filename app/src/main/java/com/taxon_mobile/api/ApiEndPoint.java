@@ -32,6 +32,9 @@ public interface ApiEndPoint {
     Call<RegisterResponse> register(
             @Field("name") String name,
             @Field("username") String username,
+            @Field("school") String school,
+            @Field("city") String city,
+            @Field("birthyear") String birthYear,
             @Field("email") String email,
             @Field("password") String password
     );

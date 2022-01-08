@@ -44,10 +44,10 @@ public class AuthRepository {
         return result;
     }
 
-    public MutableLiveData<RegisterResponse> register(String name, String username, String email, String password){
+    public MutableLiveData<RegisterResponse> register(String name, String username, String school, String city, String birthYear, String email, String password){
         final MutableLiveData<RegisterResponse> result = new MutableLiveData<>();
 
-        ApiService.endPoint().register(name, username, email, password).enqueue(new Callback<RegisterResponse>() {
+        ApiService.endPoint().register(name, school, city, birthYear, username, email, password).enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                 result.setValue(response.body());

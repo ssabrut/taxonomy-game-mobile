@@ -16,6 +16,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.taxon_mobile.R;
 import com.taxon_mobile.helpers.IOnBackPressed;
 import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.models.RegisterResponse;
+import com.taxon_mobile.models.User;
 import com.taxon_mobile.viewmodels.UserStatViewModel;
 import com.taxon_mobile.views.fragments.MainFragment;
 
