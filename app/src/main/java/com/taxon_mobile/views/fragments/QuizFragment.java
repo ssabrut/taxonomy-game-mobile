@@ -1,7 +1,9 @@
 package com.taxon_mobile.views.fragments;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -167,7 +169,25 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
                     questions.clear();
                 }
 
-                quizFeedbackDialog.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Apakah kamu yakin?");
+                builder.setMessage("Jika kamu sudah yakin tekan tombol kirim atau tekan tombol kembali untuk mengecek jawaban kembali!");
+                builder.setNegativeButton(R.string.cancel_quiz_finish, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                builder.setPositiveButton(R.string.confirmation_quiz_finish, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        quizFeedbackDialog.show();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
