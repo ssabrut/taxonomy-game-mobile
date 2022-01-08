@@ -1,7 +1,9 @@
 package com.taxon_mobile.views.fragments;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -87,7 +89,6 @@ public class MainFragment extends Fragment {
         quizDialog = new Dialog(getActivity());
         biome_dialog = new Dialog(getActivity());
         settingDialog();
-        quizDialog();
         biomeDialog();
 
         main_user_click_power.setText(String.valueOf(MainActivity.power));
@@ -149,6 +150,10 @@ public class MainFragment extends Fragment {
     private void settingDialog() {
         settingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         settingDialog.setContentView(R.layout.dialog_option);
+        settingDialog.getWindow().setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
         settingDialog.setCancelable(true);
 
         option_logout_btn = settingDialog.findViewById(R.id.option_logout_btn);
@@ -179,34 +184,35 @@ public class MainFragment extends Fragment {
     }
 
     private void quizDialog() {
-        quizDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        quizDialog.setContentView(R.layout.dialog_quiz_confirmation);
-        quizDialog.setCancelable(true);
-
-        quiz_content = quizDialog.findViewById(R.id.quiz_content);
-        quiz_cancel_btn = quizDialog.findViewById(R.id.quiz_cancel_btn);
-        quiz_accept_btn = quizDialog.findViewById(R.id.quiz_accept_btn);
-
-        quiz_content.setText("Saat ini point kamu " + MainActivity.point + ", untuk akses bioma selanjutnya kamu butuh 20 point!");
-        quiz_cancel_btn.setOnClickListener(new View.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Oops, point kamu kurang");
+        builder.setMessage("Saat ini point kamu " + MainActivity.point + ", untuk akses bioma selanjutnya kamu butuh 20 point!");
+        builder.setNegativeButton(R.string.cancel_quiz_dialog_label, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                quizDialog.dismiss();
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
             }
         });
 
-        quiz_accept_btn.setOnClickListener(new View.OnClickListener() {
+        builder.setPositiveButton(R.string.accept_quiz_dialog_label, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(DialogInterface dialogInterface, int i) {
                 Navigation.findNavController(foo).navigate(R.id.action_mainFragment_to_quizFragment);
-                quizDialog.dismiss();
+                dialogInterface.dismiss();
             }
         });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void biomeDialog() {
         biome_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         biome_dialog.setContentView(R.layout.dialog_biome);
+        biome_dialog.getWindow().setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
         biome_dialog.setCancelable(true);
 
         earth_btn = biome_dialog.findViewById(R.id.earth_btn);
@@ -224,7 +230,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (MainActivity.point < 20) {
-                    quizDialog.show();
+                    quizDialog();
                 } else {
                     main_biome_bg.setImageResource(R.drawable.ocean_floor);
                     main_earth.setImageResource(0);

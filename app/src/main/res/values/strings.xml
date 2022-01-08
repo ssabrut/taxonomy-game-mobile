@@ -44,4 +44,8 @@
 
     <!--  species fragment  -->
     <string name="creature_title">Spesies</string>
+
+    <!--  quiz fragment  -->
+    <string name="cancel_quiz_finish">Kembali</string>
+    <string name="confirmation_quiz_finish">Kirim</string>
 </resources>
