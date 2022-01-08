@@ -37,6 +37,7 @@
 
     <!--  user creature fragment  -->
     <string name="user_creature_title">Spesies Kamu</string>
+    <string name="user_creature_empty">Kamu belom memiliki spesies</string>
 
     <!--  user creature detail fragment  -->
     <string name="classification_label">Klasifikasi</string>
@@ -51,4 +52,6 @@
     <!--  quiz fragment  -->
     <string name="cancel_quiz_finish">Kembali</string>
     <string name="confirmation_quiz_finish">Kirim</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

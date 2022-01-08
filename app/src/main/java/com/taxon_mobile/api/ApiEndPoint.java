@@ -2,6 +2,7 @@ package com.taxon_mobile.api;
 
 import com.taxon_mobile.models.Creature;
 import com.taxon_mobile.models.Evolution;
+import com.taxon_mobile.models.Leaderboard;
 import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.models.LogoutResponse;
 import com.taxon_mobile.models.Quiz;
@@ -96,6 +97,11 @@ public interface ApiEndPoint {
 
     @GET("evolutions")
     Call<Evolution> evolution(
+            @Header("Authorization") String token
+    );
+
+    @GET("leaderboard")
+    Call<Leaderboard> leaderboard(
             @Header("Authorization") String token
     );
 }

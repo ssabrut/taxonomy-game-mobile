@@ -24,6 +24,7 @@
         android:layout_height="40dp"
         android:background="@color/black"
         android:foregroundGravity="center_vertical"
+        app:itemIconTint="@drawable/bottom_nav_icon_color_selector"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

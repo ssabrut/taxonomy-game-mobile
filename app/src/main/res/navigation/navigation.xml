@@ -46,4 +46,9 @@
         android:name="com.taxon_mobile.views.fragments.UserCreatureDetailFragment"
         android:label="fragment_user_creature_detail"
         tools:layout="@layout/fragment_user_creature_detail" />
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="com.taxon_mobile.views.fragments.LeaderboardFragment"
+        android:label="fragment_leaderboard"
+        tools:layout="@layout/fragment_leaderboard" />
 </navigation>

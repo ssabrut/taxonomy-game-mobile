@@ -17,4 +17,8 @@
         android:id="@+id/speciesFragment"
         android:icon="@drawable/phylogenetics"
         android:title="Species" />
+    <item
+        android:id="@+id/leaderboardFragment"
+        android:icon="@drawable/leaderboard"
+        android:title="Leaderboard" />
 </menu>

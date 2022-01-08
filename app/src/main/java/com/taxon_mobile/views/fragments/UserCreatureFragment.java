@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.taxon_mobile.R;
@@ -30,6 +31,7 @@ public class UserCreatureFragment extends Fragment {
     private String mParam2;
     private RecyclerView user_creature_rv;
     private SpeciesViewModel viewModel;
+    private TextView user_creature_empty;
 
     public UserCreatureFragment() {
         // Required empty public constructor
@@ -57,6 +59,7 @@ public class UserCreatureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_creature, container, false);
         user_creature_rv = view.findViewById(R.id.user_creature_rv);
+        user_creature_empty = view.findViewById(R.id.user_creature_empty);
         viewModel = new ViewModelProvider(this).get(SpeciesViewModel.class);
         if (MainActivity.token != "") {
             viewModel.userCreature("Bearer " + MainActivity.token);
@@ -69,16 +72,23 @@ public class UserCreatureFragment extends Fragment {
     private Observer<List<UserCreature.UserCreatures>> showUserCreature = new Observer<List<UserCreature.UserCreatures>>() {
         @Override
         public void onChanged(List<UserCreature.UserCreatures> userCreature) {
-            user_creature_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-            UserCreatureAdapter adapter = new UserCreatureAdapter(getActivity().getApplicationContext());
-            adapter.setListUserCreature(userCreature);
-            user_creature_rv.setAdapter(adapter);
+            if (userCreature.isEmpty()) {
+                user_creature_empty.setVisibility(View.VISIBLE);
+            } else {
+                user_creature_empty.setVisibility(View.GONE);
+                user_creature_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+                UserCreatureAdapter adapter = new UserCreatureAdapter(getActivity().getApplicationContext());
+                adapter.setListUserCreature(userCreature);
+                user_creature_rv.setAdapter(adapter);
+            }
         }
     };
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        UserCreatureAdapter.listUserCreature.clear();
+        if (UserCreatureAdapter.listUserCreature != null) {
+            UserCreatureAdapter.listUserCreature.clear();
+        }
     }
 }

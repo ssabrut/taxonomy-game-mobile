@@ -25,6 +25,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.taxon_mobile.R;
 import com.taxon_mobile.models.LogoutResponse;
@@ -116,15 +117,19 @@ public class MainFragment extends Fragment {
         main_upgrade_user_click_power_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MainActivity.token != "") {
+                if (MainActivity.evo > MainActivity.power) {
                     viewModel.upgradePower("Bearer " + MainActivity.token);
                     viewModel.getUpgradePowerDetails().observe(getViewLifecycleOwner(), new Observer<User.Stat>() {
                         @Override
                         public void onChanged(User.Stat stat) {
                             MainActivity.power = stat.getPower();
-                            main_user_click_power.setText(String.valueOf(stat.getPower()));
+                            MainActivity.evo -= MainActivity.power;
+                            main_user_click_power.setText(String.valueOf(MainActivity.power));
+                            main_user_dna.setText(String.valueOf(MainActivity.evo));
                         }
                     });
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Evo tidak cukup!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
