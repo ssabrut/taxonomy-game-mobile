@@ -17,11 +17,12 @@
     <!--  register activity  -->
     <string name="register">Daftar</string>
     <string name="name_label">Nama Lengkap</string>
-    <string name="account_related">Account</string>
+    <string name="school_label">Asal Sekolah</string>
+    <string name="city_label">Asal Kota</string>
+    <string name="birthyear_label">Tanggal Lahir</string>
     <string name="username_label">Username</string>
     <string name="register_email_label">Email</string>
     <string name="register_password_label">Password</string>
-    <string name="register_btn_label">Daftar</string>
 
     <!--  main fragment  -->
     <string name="click_power_placeholder">Click Power</string>
