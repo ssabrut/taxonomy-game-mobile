@@ -47,7 +47,7 @@ public class MainFragment extends Fragment {
     private ConstraintLayout main_canvas;
     private ImageView main_earth, main_earth_icon, main_biome_bg, main_setting_btn;
     public static TextView main_user_click_power, main_user_dna, quiz_content;
-    private CardView main_upgrade_user_click_power_btn, earth_btn, sea_btn;
+    private CardView main_upgrade_user_click_power_btn, earth_btn, sea_btn, land_btn;
     private Dialog settingDialog, quizDialog, biome_dialog;
     private Button option_logout_btn;
     private View foo;
@@ -197,10 +197,10 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private void quizDialog() {
+    private void quizDialog(int pointNeeded) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Oops, point kamu kurang");
-        builder.setMessage("Saat ini point kamu " + MainActivity.point + ", untuk akses bioma selanjutnya kamu butuh 20 point!");
+        builder.setMessage("Saat ini point kamu " + MainActivity.point + ", untuk akses bioma selanjutnya kamu butuh " + pointNeeded + " point!");
         builder.setNegativeButton(R.string.cancel_quiz_dialog_label, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -231,6 +231,7 @@ public class MainFragment extends Fragment {
 
         earth_btn = biome_dialog.findViewById(R.id.earth_btn);
         sea_btn = biome_dialog.findViewById(R.id.sea_btn);
+        land_btn = biome_dialog.findViewById(R.id.land_btn);
         earth_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -243,10 +244,25 @@ public class MainFragment extends Fragment {
         sea_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MainActivity.point < 20) {
-                    quizDialog();
+                int pointNeeded = 20;
+                if (MainActivity.point < pointNeeded) {
+                    quizDialog(pointNeeded);
                 } else {
                     main_biome_bg.setImageResource(R.drawable.ocean_floor);
+                    main_earth.setImageResource(0);
+                }
+                biome_dialog.dismiss();
+            }
+        });
+
+        land_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pointNeeded = 40;
+                if (MainActivity.point < 40) {
+                    quizDialog(pointNeeded);
+                } else {
+                    main_biome_bg.setImageResource(R.drawable.land);
                     main_earth.setImageResource(0);
                 }
                 biome_dialog.dismiss();

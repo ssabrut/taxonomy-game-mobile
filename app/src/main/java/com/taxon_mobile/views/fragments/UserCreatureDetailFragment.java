@@ -120,7 +120,7 @@ public class UserCreatureDetailFragment extends Fragment {
                         creature_evolution_card.setLayoutParams(layoutParams);
                         creature_evolution_card.setElevation(0f);
                         creature_evolution_card.setRadius(24f);
-                        creature_evolution_card.setCardBackgroundColor(Color.MAGENTA);
+                        creature_evolution_card.setCardBackgroundColor(getResources().getColor(R.color.cream));
                         creature_evolution_card.addView(generateCreatureEvolutionImage(creatureEvolutions.get(i).getImage_path()));
                         creature_evolution_card.addView(generateCreatureEvolutionName(creatureEvolutions.get(i).getName()));
                         creature_evolution_card.addView(generateCreatureEvolutionDescription(creatureEvolutions.get(i).getDescription()));
@@ -176,7 +176,7 @@ public class UserCreatureDetailFragment extends Fragment {
         textView.setText(name);
         textView.setTextSize(15f);
         textView.setTypeface(Typeface.DEFAULT_BOLD);
-        textView.setTextColor(getResources().getColor(R.color.dark_black));
+        textView.setTextColor(getResources().getColor(R.color.coral));
 
         return textView;
     }
@@ -191,7 +191,7 @@ public class UserCreatureDetailFragment extends Fragment {
         layoutParams.setMargins(320, 80, 32, 0);
         textView.setLayoutParams(layoutParams);
         textView.setText(description.substring(0, 80) + "...");
-        textView.setTextColor(getResources().getColor(R.color.dark_black));
+        textView.setTextColor(getResources().getColor(R.color.coral));
 
         return textView;
     }

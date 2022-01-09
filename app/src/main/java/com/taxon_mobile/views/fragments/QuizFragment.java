@@ -52,6 +52,7 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
     private LinearLayout quiz_feedback_layout;
     private Button quiz_feedback_finish_btn;
     private View foo;
+    private TextView feedback_title;
 
     private List<String> answers;
     private List<String> keys;
@@ -130,23 +131,35 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
                         );
 
                         if (i == 0) {
-                            layoutParams.setMargins(32, 64, 32, 0);
+                            layoutParams.setMargins(48, 48, 48, 0);
                         } else {
-                            layoutParams.setMargins(32, 16, 32, 0);
+                            layoutParams.setMargins(48, 16, 48, 0);
                         }
 
                         textView.setLayoutParams(layoutParams);
                         textView.setText(questions.get(i));
                         textView.setTextColor(getResources().getColor(R.color.dark_black));
+                        if (MainActivity.point < 20) {
+                            feedback_title.setText("Ada yang salah, coba di baca lagi");
+                            feedback_title.setTextSize(18f);
+                            feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
+                        } else if (correctAnswer > 0 && MainActivity.point >= 20) {
+                            feedback_title.setText("Selamat anda telah membuka bioma baru");
+                            feedback_title.setTextSize(18f);
+                            feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
+                        }
+
                         quiz_feedback_layout.addView(textView);
                     }
                 }
+
 
                 TextView quiz_feedback_finish_btn = new TextView(getActivity().getApplicationContext());
                 quiz_feedback_finish_btn.setText(getResources().getText(R.string.finish_quiz));
                 quiz_feedback_finish_btn.setGravity(Gravity.END | Gravity.BOTTOM);
                 quiz_feedback_finish_btn.setTextSize(20f);
                 quiz_feedback_finish_btn.setPadding(0, 32, 65, 56);
+                quiz_feedback_finish_btn.setTextColor(getResources().getColor(R.color.dark_black));
                 quiz_feedback_layout.addView(quiz_feedback_finish_btn);
 
                 quiz_feedback_finish_btn.setOnClickListener(new View.OnClickListener() {
@@ -237,5 +250,13 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
         );
         quizFeedbackDialog.setCancelable(false);
         quiz_feedback_layout = quizFeedbackDialog.findViewById(R.id.quiz_feedback_layout);
+        feedback_title = quizFeedbackDialog.findViewById(R.id.feedback_title);
+        LinearLayout.LayoutParams linearLayout = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+
+        linearLayout.setMargins(48, 48, 48, 0);
+        feedback_title.setLayoutParams(linearLayout);
     }
 }

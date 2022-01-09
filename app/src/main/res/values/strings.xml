@@ -34,6 +34,7 @@
     <string name="finish_quiz">Selesai</string>
     <string name="earth_dialog">Bumi</string>
     <string name="sea_dialog">Bioma Laut</string>
+    <string name="land_dialog">Bioma daratan</string>
 
     <!--  user creature fragment  -->
     <string name="user_creature_title">Spesies Kamu</string>
