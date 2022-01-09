@@ -136,6 +136,8 @@ public class MainFragment extends Fragment {
                             logViewModel.log("Bearer " + MainActivity.token, "UserStat", "User id : " + MainActivity.user.getId() + " UserStat power added by 1");
                         }
                     });
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Evo tidak cukup!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

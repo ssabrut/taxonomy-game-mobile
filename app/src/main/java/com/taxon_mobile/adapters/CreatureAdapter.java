@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -19,6 +20,7 @@ import com.taxon_mobile.viewmodels.LogViewModel;
 import com.taxon_mobile.viewmodels.SpeciesViewModel;
 import com.taxon_mobile.viewmodels.UserStatViewModel;
 import com.taxon_mobile.views.MainActivity;
+import com.taxon_mobile.views.fragments.SpeciesFragment;
 
 import java.util.List;
 
@@ -63,6 +65,8 @@ public class CreatureAdapter extends RecyclerView.Adapter<CreatureAdapter.Creatu
                     UserStatViewModel.saveUserStat("Bearer " + MainActivity.token, MainActivity.power, MainActivity.evo, MainActivity.dna, MainActivity.point);
                     LogViewModel.log("Bearer " + MainActivity.token, "Evolution", "User id : " + MainActivity.user.getId() + " unlocked Species id " + result.getId());
                     LogViewModel.log("Bearer " + MainActivity.token, "UserStat", "User id : " + MainActivity.user.getId() + " UserStat evo subtracted by " + result.getPrice());
+                } else {
+                    Toast.makeText(SpeciesFragment.context, "Evo tidak cukup!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

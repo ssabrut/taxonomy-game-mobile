@@ -32,13 +32,13 @@ public interface ApiEndPoint {
     @FormUrlEncoded
     @POST("register")
     Call<RegisterResponse> register(
-            @Field("name") String name,
+            @Field("email") String email,
+            @Field("password") String password,
             @Field("username") String username,
+            @Field("name") String name,
             @Field("school") String school,
             @Field("city") String city,
-            @Field("birthyear") String birthYear,
-            @Field("email") String email,
-            @Field("password") String password
+            @Field("birthyear") String birthYear
     );
 
     @POST("logout")

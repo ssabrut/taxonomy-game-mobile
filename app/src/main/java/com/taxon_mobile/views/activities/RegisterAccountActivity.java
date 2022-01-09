@@ -5,9 +5,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 
@@ -28,11 +31,13 @@ public class RegisterAccountActivity extends AppCompatActivity {
     private Button register_btn;
     private AuthViewModel viewModel;
     private LogViewModel logViewModel;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_account);
+        context = getBaseContext();
         intent = getIntent();
         name = intent.getStringExtra("name");
         school = intent.getStringExtra("school");
@@ -45,6 +50,7 @@ public class RegisterAccountActivity extends AppCompatActivity {
         register_btn = findViewById(R.id.register_btn);
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         logViewModel = new ViewModelProvider(this).get(LogViewModel.class);
+        formValidation();
 
         register_account_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +66,8 @@ public class RegisterAccountActivity extends AppCompatActivity {
                 String email = register_input_email.getEditText().getText().toString().trim();
                 String password = register_input_password.getEditText().getText().toString().trim();
 
-                if (!username.isEmpty() || !email.isEmpty() || !password.isEmpty()) {
-                    viewModel.register(name, username, school, city, birthYear, email, password);
+                if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                    viewModel.register(email, password, username, name, school, city, birthYear);
                     viewModel.getRegisterDetails().observe(RegisterAccountActivity.this, new Observer<RegisterResponse>() {
                         @Override
                         public void onChanged(RegisterResponse registerResponse) {
@@ -103,7 +109,82 @@ public class RegisterAccountActivity extends AppCompatActivity {
                             }
                         }
                     });
+                } else {
+                    register_input_username.setError("Username tidak boleh kosong!");
+                    register_input_email.setError("Email tidak boleh kosong!");
+                    register_input_password.setError("Password tidak boleh kosong!");
                 }
+            }
+        });
+    }
+
+    private void formValidation() {
+        register_input_username.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String username = register_input_username.getEditText().getText().toString().trim();
+
+                if (username.isEmpty()) {
+                    register_input_username.setError("Username tidak boleh kosong!");
+                } else {
+                    register_input_username.setError("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        register_input_email.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String email = register_input_email.getEditText().getText().toString().trim();
+
+                if (email.isEmpty()) {
+                    register_input_email.setError("Email tidak boleh kosong!");
+                } else {
+                    register_input_email.setError("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        register_input_password.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String password = register_input_password.getEditText().getText().toString().trim();
+
+                if (password.isEmpty()) {
+                    register_input_password.setError("Password tidak boleh kosong!");
+                } else {
+                    register_input_password.setError("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
     }
