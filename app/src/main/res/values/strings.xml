@@ -52,6 +52,10 @@
     <!--  quiz fragment  -->
     <string name="cancel_quiz_finish">Kembali</string>
     <string name="confirmation_quiz_finish">Kirim</string>
+
+    <!--  leaderboard fragment  -->
+    <string name="leaderboard_title">Papan Peringkat</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
