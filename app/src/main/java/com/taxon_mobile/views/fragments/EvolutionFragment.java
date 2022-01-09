@@ -1,5 +1,6 @@
 package com.taxon_mobile.views.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,7 @@ public class EvolutionFragment extends Fragment {
 
     private RecyclerView evolution_rv;
     private EvolutionViewModel viewModel;
+    public static Context context;
 
     public EvolutionFragment() {
         // Required empty public constructor
@@ -56,6 +58,7 @@ public class EvolutionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_evolution, container, false);
+        context = getActivity().getApplicationContext();
         evolution_rv = view.findViewById(R.id.evolution_rv);
         viewModel = new ViewModelProvider(this).get(EvolutionViewModel.class);
         viewModel.evolution("Bearer " + MainActivity.token);

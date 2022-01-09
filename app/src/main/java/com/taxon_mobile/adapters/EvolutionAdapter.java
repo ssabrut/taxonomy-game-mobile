@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -64,6 +65,8 @@ public class EvolutionAdapter extends RecyclerView.Adapter<EvolutionAdapter.Evol
                     UserStatViewModel.saveUserStat("Bearer " + MainActivity.token, MainActivity.power, MainActivity.evo, MainActivity.dna, MainActivity.point);
                     LogViewModel.log("Bearer " + MainActivity.token, "Evolution", "User id : " + MainActivity.user.getId() + " unlocked Evolution id " + result.getId());
                     LogViewModel.log("Bearer " + MainActivity.token, "UserStat", "User id : " + MainActivity.user.getId() + " UserStat evo subtracted by " + result.getPrice());
+                } else {
+                    Toast.makeText(EvolutionFragment.context, "Evo tidak cukup!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

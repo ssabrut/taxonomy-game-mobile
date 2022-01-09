@@ -1,11 +1,20 @@
 package com.taxon_mobile.repositories;
 
+import android.widget.Toast;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.taxon_mobile.api.ApiService;
 import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.models.LogoutResponse;
 import com.taxon_mobile.models.RegisterResponse;
+import com.taxon_mobile.views.activities.LoginActivity;
+import com.taxon_mobile.views.activities.RegisterAccountActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +41,18 @@ public class AuthRepository {
         ApiService.endPoint().login(email, password).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                result.setValue(response.body());
+                if (response.isSuccessful()) {
+                    result.setValue(response.body());
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Toast.makeText(LoginActivity.context, jsonObject.getString("status_message"), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
@@ -44,17 +64,31 @@ public class AuthRepository {
         return result;
     }
 
-    public MutableLiveData<RegisterResponse> register(String name, String username, String school, String city, String birthYear, String email, String password){
+    public MutableLiveData<RegisterResponse> register(String email, String password, String username, String name, String school, String city, String birthyear) {
         final MutableLiveData<RegisterResponse> result = new MutableLiveData<>();
 
-        ApiService.endPoint().register(name, school, city, birthYear, username, email, password).enqueue(new Callback<RegisterResponse>() {
+        ApiService.endPoint().register(email, password, username, name, school, city, birthyear).enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                result.setValue(response.body());
+                if (response.isSuccessful()) {
+                    result.setValue(response.body());
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Toast.makeText(RegisterAccountActivity.context, jsonObject.getString("status_message"), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
 
             @Override
-            public void onFailure(Call<RegisterResponse> call, Throwable t) { t.printStackTrace(); }
+            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
 
         });
 

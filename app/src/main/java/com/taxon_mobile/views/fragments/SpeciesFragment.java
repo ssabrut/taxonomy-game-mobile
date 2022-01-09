@@ -1,5 +1,6 @@
 package com.taxon_mobile.views.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class SpeciesFragment extends Fragment {
 
     private RecyclerView species_rv;
     private SpeciesViewModel viewModel;
+    public static Context context;
 
     public SpeciesFragment() {
         // Required empty public constructor
@@ -59,6 +61,7 @@ public class SpeciesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_species, container, false);
+        context = getActivity().getApplicationContext();
         species_rv = view.findViewById(R.id.species_rv);
         viewModel = new ViewModelProvider(this).get(SpeciesViewModel.class);
         viewModel.creature("Bearer " + MainActivity.token);

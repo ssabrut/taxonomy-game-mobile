@@ -33,8 +33,8 @@ public class AuthViewModel extends AndroidViewModel {
 
     private MutableLiveData<RegisterResponse> resultRegister = new MutableLiveData<>();
 
-    public void register(String name, String username, String school, String city, String birthYear, String email, String password) {
-        resultRegister = repository.register(name, username, school, city, birthYear, email, password);
+    public void register(String email, String password, String username, String name, String school, String city, String birthyear) {
+        resultRegister = repository.register(email, password, username, name, school, city, birthyear);
     }
 
     public LiveData<RegisterResponse> getRegisterDetails() {
