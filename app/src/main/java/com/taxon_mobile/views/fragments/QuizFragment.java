@@ -57,7 +57,7 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
     private List<String> answers;
     private List<String> keys;
     private List<String> questions;
-    private int correctAnswer = 0;
+    private int correctAnswer = 0, tempPoin = 0;
 
     public QuizFragment() {
         // Required empty public constructor
@@ -98,6 +98,13 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
         viewModel.getQuizDetail().observe(getViewLifecycleOwner(), showQuiz);
         quizFeedbackDialog();
 
+        TextView quiz_feedback_finish_btn = new TextView(getActivity().getApplicationContext());
+        quiz_feedback_finish_btn.setText(getResources().getText(R.string.finish_quiz));
+        quiz_feedback_finish_btn.setGravity(Gravity.END | Gravity.BOTTOM);
+        quiz_feedback_finish_btn.setTextSize(20f);
+        quiz_feedback_finish_btn.setPadding(0, 32, 65, 56);
+        quiz_feedback_finish_btn.setTextColor(getResources().getColor(R.color.dark_black));
+        quiz_feedback_layout.addView(quiz_feedback_finish_btn);
         quiz_submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +115,7 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
                 if (keys.size() > 0) {
                     keys.clear();
                 }
+
 
                 for (int i = 0; i < adapter.getItemCount(); i++) {
                     View view1 = quiz_rv.getChildAt(i);
@@ -121,7 +129,6 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
 
                 for (int i = 0; i < keys.size(); i++) {
                     if (answers.get(i).equalsIgnoreCase(keys.get(i))) {
-                        MainActivity.point += 10;
                         correctAnswer++;
                     } else {
                         TextView textView = new TextView(getActivity().getApplicationContext());
@@ -139,28 +146,22 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
                         textView.setLayoutParams(layoutParams);
                         textView.setText(questions.get(i));
                         textView.setTextColor(getResources().getColor(R.color.dark_black));
-                        if (MainActivity.point < 20) {
-                            feedback_title.setText("Ada yang salah, coba di baca lagi");
-                            feedback_title.setTextSize(18f);
-                            feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
-                        } else if (correctAnswer > 0 && MainActivity.point >= 20) {
-                            feedback_title.setText("Selamat anda telah membuka bioma baru");
-                            feedback_title.setTextSize(18f);
-                            feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
-                        }
 
                         quiz_feedback_layout.addView(textView);
                     }
+
+                    if (correctAnswer < keys.size()) {
+                        feedback_title.setText("Ada yang salah, coba di baca lagi");
+                        feedback_title.setTextSize(18f);
+                        feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
+                    } else if (correctAnswer == keys.size()) {
+                        feedback_title.setText("Selamat anda telah membuka bioma baru");
+                        feedback_title.setTextSize(18f);
+                        feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
+                        tempPoin = MainActivity.point;
+                        MainActivity.point += 100;
+                    }
                 }
-
-
-                TextView quiz_feedback_finish_btn = new TextView(getActivity().getApplicationContext());
-                quiz_feedback_finish_btn.setText(getResources().getText(R.string.finish_quiz));
-                quiz_feedback_finish_btn.setGravity(Gravity.END | Gravity.BOTTOM);
-                quiz_feedback_finish_btn.setTextSize(20f);
-                quiz_feedback_finish_btn.setPadding(0, 32, 65, 56);
-                quiz_feedback_finish_btn.setTextColor(getResources().getColor(R.color.dark_black));
-                quiz_feedback_layout.addView(quiz_feedback_finish_btn);
 
                 quiz_feedback_finish_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -174,7 +175,7 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
                         editor.putInt("dna", MainActivity.dna);
                         editor.putInt("point", MainActivity.point);
                         editor.commit();
-                        if (MainActivity.point >= 20) {
+                        if (MainActivity.point >= 100) {
                             LogViewModel.log("Bearer " + MainActivity.token, "Quiz", "User id : " + MainActivity.user.getId() + " finished quiz with score " + MainActivity.point);
                             LogViewModel.log("Bearer " + MainActivity.token, "Quiz", "User id : " + MainActivity.user.getId() + " unlocked sea biome");
                         } else {
@@ -196,6 +197,8 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
                 builder.setNegativeButton(R.string.cancel_quiz_finish, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        correctAnswer = 0;
+                        MainActivity.point = tempPoin;
                         dialogInterface.cancel();
                     }
                 });

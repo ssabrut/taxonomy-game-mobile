@@ -244,7 +244,7 @@ public class MainFragment extends Fragment {
         sea_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pointNeeded = 20;
+                int pointNeeded = 100;
                 if (MainActivity.point < pointNeeded) {
                     quizDialog(pointNeeded);
                 } else {
@@ -258,8 +258,8 @@ public class MainFragment extends Fragment {
         land_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pointNeeded = 40;
-                if (MainActivity.point < 40) {
+                int pointNeeded = 200;
+                if (MainActivity.point < pointNeeded) {
                     quizDialog(pointNeeded);
                 } else {
                     main_biome_bg.setImageResource(R.drawable.land);
