@@ -13,6 +13,7 @@ import android.view.View;
 import com.taxon_mobile.R;
 import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.viewmodels.AuthViewModel;
+import com.taxon_mobile.viewmodels.LogViewModel;
 import com.taxon_mobile.views.MainActivity;
 
 public class ChooseAuthActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class ChooseAuthActivity extends AppCompatActivity {
     private CardView choose_login, choose_register;
     private SharedPreferences sp;
     private AuthViewModel viewModel;
+    private LogViewModel logViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class ChooseAuthActivity extends AppCompatActivity {
         choose_register = findViewById(R.id.choose_register);
         sp = getSharedPreferences("UserStat", MODE_PRIVATE);
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        logViewModel = new ViewModelProvider(this).get(LogViewModel.class);
 
         choose_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +61,7 @@ public class ChooseAuthActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(LoginResponse loginResponse) {
                     if (loginResponse.getStatus_code() == 200) {
+                        logViewModel.log("Bearer " + loginResponse.getToken(), "User", "User id: " + loginResponse.getUser().getId() + " logged in");
                         try {
                             MainActivity.user = loginResponse.getUser();
                             MainActivity.token = loginResponse.getToken();

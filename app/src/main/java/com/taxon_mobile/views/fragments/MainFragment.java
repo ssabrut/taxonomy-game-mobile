@@ -31,6 +31,7 @@ import com.taxon_mobile.R;
 import com.taxon_mobile.models.LogoutResponse;
 import com.taxon_mobile.models.User;
 import com.taxon_mobile.viewmodels.AuthViewModel;
+import com.taxon_mobile.viewmodels.LogViewModel;
 import com.taxon_mobile.viewmodels.UserStatViewModel;
 import com.taxon_mobile.views.MainActivity;
 import com.taxon_mobile.views.activities.LoginActivity;
@@ -47,10 +48,12 @@ public class MainFragment extends Fragment {
     private ImageView main_earth, main_earth_icon, main_biome_bg, main_setting_btn;
     public static TextView main_user_click_power, main_user_dna, quiz_content;
     private CardView main_upgrade_user_click_power_btn, earth_btn, sea_btn;
-    private UserStatViewModel viewModel;
     private Dialog settingDialog, quizDialog, biome_dialog;
-    private Button option_logout_btn, quiz_cancel_btn, quiz_accept_btn;
+    private Button option_logout_btn;
     private View foo;
+
+    private UserStatViewModel viewModel;
+    private LogViewModel logViewModel;
 
     public MainFragment() {
     }
@@ -86,6 +89,7 @@ public class MainFragment extends Fragment {
         main_biome_bg = view.findViewById(R.id.main_biome_bg);
         main_upgrade_user_click_power_btn = view.findViewById(R.id.main_upgrade_user_click_power_btn);
         viewModel = new ViewModelProvider(this).get(UserStatViewModel.class);
+        logViewModel = new ViewModelProvider(this).get(LogViewModel.class);
         settingDialog = new Dialog(getActivity());
         quizDialog = new Dialog(getActivity());
         biome_dialog = new Dialog(getActivity());
@@ -109,7 +113,7 @@ public class MainFragment extends Fragment {
         main_canvas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.evo += Integer.parseInt(main_user_click_power.getText().toString());
+                MainActivity.evo += MainActivity.power;
                 main_user_dna.setText(String.valueOf(MainActivity.evo));
             }
         });
@@ -117,19 +121,21 @@ public class MainFragment extends Fragment {
         main_upgrade_user_click_power_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MainActivity.evo > MainActivity.power) {
+                if (MainActivity.evo >= MainActivity.power) {
+                    MainActivity.evo -= MainActivity.power;
+                    MainActivity.power++;
+                    viewModel.saveUserStat("Bearer " + MainActivity.token, MainActivity.power, MainActivity.evo, MainActivity.dna, MainActivity.point);
+
                     viewModel.upgradePower("Bearer " + MainActivity.token);
                     viewModel.getUpgradePowerDetails().observe(getViewLifecycleOwner(), new Observer<User.Stat>() {
                         @Override
                         public void onChanged(User.Stat stat) {
-                            MainActivity.power = stat.getPower();
-                            MainActivity.evo -= MainActivity.power;
-                            main_user_click_power.setText(String.valueOf(MainActivity.power));
                             main_user_dna.setText(String.valueOf(MainActivity.evo));
+                            main_user_click_power.setText(String.valueOf(MainActivity.power));
+                            logViewModel.log("Bearer " + MainActivity.token, "UserStat", "User id : " + MainActivity.user.getId() + " UserStat evo subtracted by " + MainActivity.power);
+                            logViewModel.log("Bearer " + MainActivity.token, "UserStat", "User id : " + MainActivity.user.getId() + " UserStat power added by 1");
                         }
                     });
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Evo tidak cukup!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -165,6 +171,7 @@ public class MainFragment extends Fragment {
         option_logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                logViewModel.log("Bearer " + MainActivity.token, "User", "User id : " + MainActivity.user.getId() + " logged out");
                 AuthViewModel authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
                 authViewModel.logout("Bearer " + MainActivity.token);
                 authViewModel.getLogoutDetail().observe(getViewLifecycleOwner(), new Observer<LogoutResponse>() {

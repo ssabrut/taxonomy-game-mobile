@@ -15,7 +15,9 @@ import com.bumptech.glide.Glide;
 import com.taxon_mobile.R;
 import com.taxon_mobile.helpers.Const;
 import com.taxon_mobile.models.Creature;
+import com.taxon_mobile.viewmodels.LogViewModel;
 import com.taxon_mobile.viewmodels.SpeciesViewModel;
+import com.taxon_mobile.viewmodels.UserStatViewModel;
 import com.taxon_mobile.views.MainActivity;
 
 import java.util.List;
@@ -55,7 +57,13 @@ public class CreatureAdapter extends RecyclerView.Adapter<CreatureAdapter.Creatu
         holder.creature_buy_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SpeciesViewModel.unlockCreature("Bearer " + MainActivity.token, result.getId());
+                if (MainActivity.evo >= result.getPrice()) {
+                    MainActivity.evo -= result.getPrice();
+                    SpeciesViewModel.unlockCreature("Bearer " + MainActivity.token, result.getId());
+                    UserStatViewModel.saveUserStat("Bearer " + MainActivity.token, MainActivity.power, MainActivity.evo, MainActivity.dna, MainActivity.point);
+                    LogViewModel.log("Bearer " + MainActivity.token, "Evolution", "User id : " + MainActivity.user.getId() + " unlocked Species id " + result.getId());
+                    LogViewModel.log("Bearer " + MainActivity.token, "UserStat", "User id : " + MainActivity.user.getId() + " UserStat evo subtracted by " + result.getPrice());
+                }
             }
         });
     }

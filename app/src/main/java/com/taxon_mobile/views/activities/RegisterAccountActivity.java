@@ -16,6 +16,7 @@ import com.taxon_mobile.R;
 import com.taxon_mobile.models.LoginResponse;
 import com.taxon_mobile.models.RegisterResponse;
 import com.taxon_mobile.viewmodels.AuthViewModel;
+import com.taxon_mobile.viewmodels.LogViewModel;
 import com.taxon_mobile.views.MainActivity;
 
 public class RegisterAccountActivity extends AppCompatActivity {
@@ -26,6 +27,7 @@ public class RegisterAccountActivity extends AppCompatActivity {
     private TextInputLayout register_input_username, register_input_email, register_input_password;
     private Button register_btn;
     private AuthViewModel viewModel;
+    private LogViewModel logViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class RegisterAccountActivity extends AppCompatActivity {
         register_input_password = findViewById(R.id.register_input_password);
         register_btn = findViewById(R.id.register_btn);
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        logViewModel = new ViewModelProvider(this).get(LogViewModel.class);
 
         register_account_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +73,8 @@ public class RegisterAccountActivity extends AppCompatActivity {
                                     @Override
                                     public void onChanged(LoginResponse loginResponse) {
                                         if (loginResponse.getStatus_code() == 200) {
+                                            logViewModel.log("Bearer " + loginResponse.getToken(), "User", "User id : " + loginResponse.getUser().getId() + " registered");
+                                            logViewModel.log("Bearer " + loginResponse.getToken(), "User", "User id : " + loginResponse.getUser().getId() + " logged in");
                                             try {
                                                 MainActivity.user = loginResponse.getUser();
                                                 MainActivity.token = loginResponse.getToken();

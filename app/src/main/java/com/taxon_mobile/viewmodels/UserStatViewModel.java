@@ -11,7 +11,7 @@ import com.taxon_mobile.models.User;
 import com.taxon_mobile.repositories.UserStatRepository;
 
 public class UserStatViewModel extends AndroidViewModel {
-    private UserStatRepository repository;
+    private static UserStatRepository repository;
 
     public UserStatViewModel(@NonNull Application application) {
         super(application);
@@ -28,9 +28,7 @@ public class UserStatViewModel extends AndroidViewModel {
         return resultUpgradePower;
     }
 
-    private MutableLiveData<User.Stat> resultSaveUserStat = new MutableLiveData<>();
-
-    public void saveUserStat(String token, int power, int evo, int dna, int point) {
-        resultSaveUserStat = repository.saveUserStat(token, power, evo, dna, point);
+    public static void saveUserStat(String token, int power, int evo, int dna, int point) {
+        repository.saveUserStat(token, power, evo, dna, point);
     }
 }
