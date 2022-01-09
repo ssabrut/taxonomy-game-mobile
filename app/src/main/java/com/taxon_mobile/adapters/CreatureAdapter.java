@@ -54,7 +54,7 @@ public class CreatureAdapter extends RecyclerView.Adapter<CreatureAdapter.Creatu
         holder.creature_common_name.setText(result.getCommon_name());
         holder.creature_name.setText(result.getName());
         holder.creature_description.setText(result.getDescription().substring(0, 20) + "...");
-        holder.creature_price.setText(String.valueOf(result.getPrice()));
+        holder.creature_price.setText("Harga: " + String.valueOf(result.getPrice()));
 
         holder.creature_buy_btn.setOnClickListener(new View.OnClickListener() {
             @Override

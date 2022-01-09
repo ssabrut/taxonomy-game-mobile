@@ -7,7 +7,12 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="128dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="@color/cream"
+        app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +26,9 @@
                 android:id="@+id/creature_image_path"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -31,17 +38,20 @@
                 android:id="@+id/creature_common_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 android:text="TextView"
+                android:textColor="@color/coral"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/creature_image_path"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/creature_image_path" />
 
             <TextView
                 android:id="@+id/creature_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
+                android:textColor="@color/coral"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/creature_common_name"
                 app:layout_constraintTop_toBottomOf="@+id/creature_common_name" />
 
@@ -50,19 +60,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
+                android:textColor="@color/coral"
                 app:layout_constraintBottom_toBottomOf="@+id/creature_image_path"
                 app:layout_constraintStart_toStartOf="@+id/creature_name"
                 app:layout_constraintTop_toBottomOf="@+id/creature_name" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/creature_buy_btn"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginEnd="24dp"
-                app:cardBackgroundColor="@color/purple_200"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/primary_green"
+                app:cardCornerRadius="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/creature_image_path"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/creature_image_path">
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -72,7 +83,13 @@
                         android:id="@+id/creature_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="4dp"
                         android:text="TextView"
+                        android:textColor="@color/cream"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

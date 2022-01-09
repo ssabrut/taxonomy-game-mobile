@@ -41,6 +41,9 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     public void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position) {
         final Leaderboard.Leaderboards result = getListLeaderboard().get(position);
         holder.leaderboard_name.setText(result.getUser().getName());
+        holder.leaderboard_evo.setText(String.valueOf(result.getEvo()));
+        holder.leaderboard_power.setText(String.valueOf(result.getPower()));
+        holder.leaderboard_point.setText(String.valueOf(result.getPoint()));
         if (position == 0) {
             holder.leaderboard_position.setTextColor(context.getResources().getColor(R.color.gold));
             holder.leaderboard_position.setText(String.valueOf(position + 1));
@@ -61,12 +64,15 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     }
 
     public class LeaderboardViewHolder extends RecyclerView.ViewHolder {
-        TextView leaderboard_name, leaderboard_position;
+        TextView leaderboard_name, leaderboard_position, leaderboard_evo, leaderboard_power, leaderboard_point;
 
         public LeaderboardViewHolder(@NonNull View itemView) {
             super(itemView);
             leaderboard_name = itemView.findViewById(R.id.leaderboard_name);
             leaderboard_position = itemView.findViewById(R.id.leaderboard_position);
+            leaderboard_evo = itemView.findViewById(R.id.leaderboard_evo);
+            leaderboard_power = itemView.findViewById(R.id.leaderboard_power);
+            leaderboard_point = itemView.findViewById(R.id.leaderboard_point);
         }
     }
 }

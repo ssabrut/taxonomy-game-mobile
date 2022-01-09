@@ -54,7 +54,7 @@ public class EvolutionAdapter extends RecyclerView.Adapter<EvolutionAdapter.Evol
         Glide.with(context).load(Const.IMG_URL + result.getImage_path()).into(holder.evolution_image_path);
         holder.evolution_name.setText(result.getName());
         holder.evolution_description.setText(result.getDescription().substring(0, 20) + "...");
-        holder.evolution_price.setText(String.valueOf(result.getPrice()));
+        holder.evolution_price.setText("Harga: " + String.valueOf(result.getPrice()));
 
         holder.evolution_buy_btn.setOnClickListener(new View.OnClickListener() {
             @Override
