@@ -47,17 +47,17 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
 
     private QuizViewModel viewModel;
     public static Button quiz_submit_btn;
-    private RecyclerView quiz_rv;
     private Dialog quizFeedbackDialog;
     private LinearLayout quiz_feedback_layout;
     private Button quiz_feedback_finish_btn;
     private View foo;
-    private TextView feedback_title;
+    private TextView feedback_title, quiz_question1, quiz_question2, quiz_question3, quiz_question4, quiz_question5, quiz_question6, quiz_question7, quiz_question8, quiz_question9, quiz_question10, quiz_key1, quiz_key2, quiz_key3, quiz_key4, quiz_key5, quiz_key6, quiz_key7, quiz_key8, quiz_key9, quiz_key10;
+    private TextInputLayout quiz_answer1, quiz_answer2, quiz_answer3, quiz_answer4, quiz_answer5, quiz_answer6, quiz_answer7, quiz_answer8, quiz_answer9, quiz_answer10;
 
     private List<String> answers;
     private List<String> keys;
-    private List<String> questions;
-    private int correctAnswer = 0, tempPoin = 0;
+    public static List<String> questions;
+    private int tempPoin = 0;
 
     public QuizFragment() {
         // Required empty public constructor
@@ -87,15 +87,99 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
         QuizAdapter adapter = new QuizAdapter(getActivity().getApplicationContext());
         foo = view;
         quizFeedbackDialog = new Dialog(getActivity());
-        quiz_rv = view.findViewById(R.id.quiz_rv);
         quiz_submit_btn = view.findViewById(R.id.quiz_submit_btn);
         answers = new ArrayList<>();
         keys = new ArrayList<>();
         questions = new ArrayList<>();
-        MainActivity.counter = 0;
+        quiz_question1 = view.findViewById(R.id.quiz_question1);
+        quiz_question2 = view.findViewById(R.id.quiz_question2);
+        quiz_question3 = view.findViewById(R.id.quiz_question3);
+        quiz_question4 = view.findViewById(R.id.quiz_question4);
+        quiz_question5 = view.findViewById(R.id.quiz_question5);
+        quiz_question6 = view.findViewById(R.id.quiz_question6);
+        quiz_question7 = view.findViewById(R.id.quiz_question7);
+        quiz_question8 = view.findViewById(R.id.quiz_question8);
+        quiz_question9 = view.findViewById(R.id.quiz_question9);
+        quiz_question10 = view.findViewById(R.id.quiz_question10);
+
+        quiz_answer1 = view.findViewById(R.id.quiz_answer1);
+        quiz_answer2 = view.findViewById(R.id.quiz_answer2);
+        quiz_answer3 = view.findViewById(R.id.quiz_answer3);
+        quiz_answer4 = view.findViewById(R.id.quiz_answer4);
+        quiz_answer5 = view.findViewById(R.id.quiz_answer5);
+        quiz_answer6 = view.findViewById(R.id.quiz_answer6);
+        quiz_answer7 = view.findViewById(R.id.quiz_answer7);
+        quiz_answer8 = view.findViewById(R.id.quiz_answer8);
+        quiz_answer9 = view.findViewById(R.id.quiz_answer9);
+        quiz_answer10 = view.findViewById(R.id.quiz_answer10);
+
+        quiz_key1 = view.findViewById(R.id.quiz_key1);
+        quiz_key2 = view.findViewById(R.id.quiz_key2);
+        quiz_key3 = view.findViewById(R.id.quiz_key3);
+        quiz_key4 = view.findViewById(R.id.quiz_key4);
+        quiz_key5 = view.findViewById(R.id.quiz_key5);
+        quiz_key6 = view.findViewById(R.id.quiz_key6);
+        quiz_key7 = view.findViewById(R.id.quiz_key7);
+        quiz_key8 = view.findViewById(R.id.quiz_key8);
+        quiz_key9 = view.findViewById(R.id.quiz_key9);
+        quiz_key10 = view.findViewById(R.id.quiz_key10);
+
         viewModel = new ViewModelProvider(this).get(QuizViewModel.class);
         viewModel.quiz("Bearer " + MainActivity.token);
-        viewModel.getQuizDetail().observe(getViewLifecycleOwner(), showQuiz);
+        viewModel.getQuizDetail().observe(getViewLifecycleOwner(), new Observer<List<Quiz.Quizzes>>() {
+            @Override
+            public void onChanged(List<Quiz.Quizzes> quizzes) {
+                for (int i = 0; i < quizzes.size(); i++) {
+                    questions.add(quizzes.get(i).getQuestion());
+                    keys.add(quizzes.get(i).getAnswer());
+                }
+
+                String question1 = questions.get(0);
+                String question2 = questions.get(1);
+                String question3 = questions.get(2);
+                String question4 = questions.get(3);
+                String question5 = questions.get(4);
+                String question6 = questions.get(5);
+                String question7 = questions.get(6);
+                String question8 = questions.get(7);
+                String question9 = questions.get(8);
+                String question10 = questions.get(9);
+
+                String key1 = keys.get(0);
+                String key2 = keys.get(1);
+                String key3 = keys.get(2);
+                String key4 = keys.get(3);
+                String key5 = keys.get(4);
+                String key6 = keys.get(5);
+                String key7 = keys.get(6);
+                String key8 = keys.get(7);
+                String key9 = keys.get(8);
+                String key10 = keys.get(9);
+
+                quiz_question1.setText(question1);
+                quiz_question2.setText(question2);
+                quiz_question3.setText(question3);
+                quiz_question4.setText(question4);
+                quiz_question5.setText(question5);
+                quiz_question6.setText(question6);
+                quiz_question7.setText(question7);
+                quiz_question8.setText(question8);
+                quiz_question9.setText(question9);
+                quiz_question10.setText(question10);
+
+                quiz_key1.setText(key1);
+                quiz_key2.setText(key2);
+                quiz_key3.setText(key3);
+                quiz_key4.setText(key4);
+                quiz_key5.setText(key5);
+                quiz_key6.setText(key6);
+                quiz_key7.setText(key7);
+                quiz_key8.setText(key8);
+                quiz_key9.setText(key9);
+                quiz_key10.setText(key10);
+            }
+        });
+
         quizFeedbackDialog();
 
         TextView quiz_feedback_finish_btn = new TextView(getActivity().getApplicationContext());
@@ -108,60 +192,68 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
         quiz_submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (answers.size() > 0) {
-                    answers.clear();
+                String answer1 = quiz_answer1.getEditText().getText().toString().trim();
+                String answer2 = quiz_answer2.getEditText().getText().toString().trim();
+                String answer3 = quiz_answer3.getEditText().getText().toString().trim();
+                String answer4 = quiz_answer4.getEditText().getText().toString().trim();
+                String answer5 = quiz_answer5.getEditText().getText().toString().trim();
+                String answer6 = quiz_answer6.getEditText().getText().toString().trim();
+                String answer7 = quiz_answer7.getEditText().getText().toString().trim();
+                String answer8 = quiz_answer8.getEditText().getText().toString().trim();
+                String answer9 = quiz_answer9.getEditText().getText().toString().trim();
+                String answer10 = quiz_answer10.getEditText().getText().toString().trim();
+
+                String key1 = quiz_key1.getText().toString().trim();
+                String key2 = quiz_key2.getText().toString().trim();
+                String key3 = quiz_key3.getText().toString().trim();
+                String key4 = quiz_key4.getText().toString().trim();
+                String key5 = quiz_key5.getText().toString().trim();
+                String key6 = quiz_key6.getText().toString().trim();
+                String key7 = quiz_key7.getText().toString().trim();
+                String key8 = quiz_key8.getText().toString().trim();
+                String key9 = quiz_key9.getText().toString().trim();
+                String key10 = quiz_key10.getText().toString().trim();
+
+                if (answer1.equalsIgnoreCase(key1)
+                        && answer2.equalsIgnoreCase(key2)
+                        && answer3.equalsIgnoreCase(key3)
+                        && answer4.equalsIgnoreCase(key4)
+                        && answer5.equalsIgnoreCase(key5)
+                        && answer6.equalsIgnoreCase(key6)
+                        && answer7.equalsIgnoreCase(key7)
+                        && answer8.equalsIgnoreCase(key8)
+                        && answer9.equalsIgnoreCase(key9)
+                        && answer10.equalsIgnoreCase(key10)) {
+                    feedback_title.setText("Selamat anda telah membuka bioma baru");
+                    feedback_title.setTextSize(18f);
+                    feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
+                    tempPoin = MainActivity.point;
+                    tempPoin = MainActivity.point;
+                    MainActivity.point += 100;
+                } else {
+                    System.out.println("ada yagn salah");
                 }
 
-                if (keys.size() > 0) {
-                    keys.clear();
-                }
-
-
-                for (int i = 0; i < adapter.getItemCount(); i++) {
-                    View view1 = quiz_rv.getChildAt(i);
-                    TextInputLayout text = view1.findViewById(R.id.quiz_answer);
-                    TextView key = view1.findViewById(R.id.quiz_key);
-                    String answer = text.getEditText().getText().toString();
-                    String answerKey = key.getText().toString();
-                    answers.add(answer);
-                    keys.add(answerKey);
-                }
-
-                for (int i = 0; i < keys.size(); i++) {
-                    if (answers.get(i).equalsIgnoreCase(keys.get(i))) {
-                        correctAnswer++;
-                    } else {
-                        TextView textView = new TextView(getActivity().getApplicationContext());
-                        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT
-                        );
-
-                        if (i == 0) {
-                            layoutParams.setMargins(48, 48, 48, 0);
-                        } else {
-                            layoutParams.setMargins(48, 16, 48, 0);
-                        }
-
-                        textView.setLayoutParams(layoutParams);
-                        textView.setText(questions.get(i));
-                        textView.setTextColor(getResources().getColor(R.color.dark_black));
-
-                        quiz_feedback_layout.addView(textView);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Apakah kamu yakin?");
+                builder.setMessage("Jika kamu sudah yakin tekan tombol kirim atau tekan tombol kembali untuk mengecek jawaban kembali!");
+                builder.setNegativeButton(R.string.cancel_quiz_finish, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        MainActivity.point = tempPoin;
+                        dialogInterface.cancel();
                     }
+                });
 
-                    if (correctAnswer < keys.size()) {
-                        feedback_title.setText("Ada yang salah, coba di baca lagi");
-                        feedback_title.setTextSize(18f);
-                        feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
-                    } else if (correctAnswer == keys.size()) {
-                        feedback_title.setText("Selamat anda telah membuka bioma baru");
-                        feedback_title.setTextSize(18f);
-                        feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
-                        tempPoin = MainActivity.point;
-                        MainActivity.point += 100;
+                builder.setPositiveButton(R.string.confirmation_quiz_finish, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        quizFeedbackDialog.show();
                     }
-                }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
 
                 quiz_feedback_finish_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -187,55 +279,70 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
                     }
                 });
 
-                if (questions.size() > 0) {
-                    questions.clear();
-                }
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Apakah kamu yakin?");
-                builder.setMessage("Jika kamu sudah yakin tekan tombol kirim atau tekan tombol kembali untuk mengecek jawaban kembali!");
-                builder.setNegativeButton(R.string.cancel_quiz_finish, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        correctAnswer = 0;
-                        MainActivity.point = tempPoin;
-                        dialogInterface.cancel();
-                    }
-                });
-
-                builder.setPositiveButton(R.string.confirmation_quiz_finish, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        quizFeedbackDialog.show();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
+//                for (int i = 0; i < adapter.getItemCount(); i++) {
+//                    final RecyclerView.ViewHolder holder = quiz_rv.getChildViewHolder(quiz_rv.getChildAt(i));
+//                    TextInputLayout text = holder.itemView.findViewById(R.id.quiz_answer);
+//                    TextView key = holder.itemView.findViewById(R.id.quiz_key);
+//                    String answer = text.getEditText().getText().toString();
+//                    String answerKey = key.getText().toString();
+//                    answers.add(answer);
+//                    keys.add(answerKey);
+//                }
+//
+//                if (answers.size() > 0) {
+//                    answers.clear();
+//                }
+//
+//                if (keys.size() > 0) {
+//                    keys.clear();
+//                }
+//
+//                for (int i = 0; i < keys.size(); i++) {
+//                    if (answers.get(i).equalsIgnoreCase(keys.get(i))) {
+//                        correctAnswer++;
+//                    } else {
+//                        TextView textView = new TextView(getActivity().getApplicationContext());
+//                        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
+//                                ViewGroup.LayoutParams.WRAP_CONTENT,
+//                                ViewGroup.LayoutParams.WRAP_CONTENT
+//                        );
+//
+//                        if (i == 0) {
+//                            layoutParams.setMargins(48, 48, 48, 0);
+//                        } else {
+//                            layoutParams.setMargins(48, 16, 48, 0);
+//                        }
+//
+//                        textView.setLayoutParams(layoutParams);
+//                        textView.setText(questions.get(i));
+//                        textView.setTextColor(getResources().getColor(R.color.dark_black));
+//
+//                        quiz_feedback_layout.addView(textView);
+//                    }
+//
+//                    if (correctAnswer < keys.size()) {
+//                        feedback_title.setText("Ada yang salah, coba di baca lagi");
+//                        feedback_title.setTextSize(18f);
+//                        feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
+//                    } else if (correctAnswer == keys.size()) {
+//                        feedback_title.setText("Selamat anda telah membuka bioma baru");
+//                        feedback_title.setTextSize(18f);
+//                        feedback_title.setTextColor(getResources().getColor(R.color.dark_black));
+//                        tempPoin = MainActivity.point;
+//                        MainActivity.point += 100;
+//                    }
+//                }
             }
         });
 
         return view;
     }
 
-    private Observer<List<Quiz.Quizzes>> showQuiz = new Observer<List<Quiz.Quizzes>>() {
-        @Override
-        public void onChanged(List<Quiz.Quizzes> quizzes) {
-            quiz_rv.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-            for (int i = 0; i < quizzes.size(); i++) {
-                questions.add(quizzes.get(i).getQuestion());
-            }
-
-            QuizAdapter adapter = new QuizAdapter(getActivity().getApplicationContext());
-            adapter.setListQuiz(quizzes);
-            quiz_rv.setAdapter(adapter);
-        }
-    };
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        QuizAdapter.listQuiz.clear();
+        questions.clear();
+        keys.clear();
     }
 
 
