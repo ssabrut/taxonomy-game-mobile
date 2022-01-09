@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,7 +17,10 @@ import com.taxon_mobile.R;
 import com.taxon_mobile.helpers.Const;
 import com.taxon_mobile.models.Evolution;
 import com.taxon_mobile.viewmodels.EvolutionViewModel;
+import com.taxon_mobile.viewmodels.LogViewModel;
+import com.taxon_mobile.viewmodels.UserStatViewModel;
 import com.taxon_mobile.views.MainActivity;
+import com.taxon_mobile.views.fragments.EvolutionFragment;
 
 import java.util.List;
 
@@ -54,7 +58,13 @@ public class EvolutionAdapter extends RecyclerView.Adapter<EvolutionAdapter.Evol
         holder.evolution_buy_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EvolutionViewModel.unlockEvolution("Bearer " + MainActivity.token, result.getId());
+                if (MainActivity.evo >= result.getPrice()) {
+                    MainActivity.evo -= result.getPrice();
+                    EvolutionViewModel.unlockEvolution("Bearer " + MainActivity.token, result.getId());
+                    UserStatViewModel.saveUserStat("Bearer " + MainActivity.token, MainActivity.power, MainActivity.evo, MainActivity.dna, MainActivity.point);
+                    LogViewModel.log("Bearer " + MainActivity.token, "Evolution", "User id : " + MainActivity.user.getId() + " unlocked Evolution id " + result.getId());
+                    LogViewModel.log("Bearer " + MainActivity.token, "UserStat", "User id : " + MainActivity.user.getId() + " UserStat evo subtracted by " + result.getPrice());
+                }
             }
         });
     }

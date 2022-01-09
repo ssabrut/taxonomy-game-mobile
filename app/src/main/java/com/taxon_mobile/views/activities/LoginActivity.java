@@ -15,7 +15,9 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.taxon_mobile.R;
 import com.taxon_mobile.models.LoginResponse;
+import com.taxon_mobile.models.User;
 import com.taxon_mobile.viewmodels.AuthViewModel;
+import com.taxon_mobile.viewmodels.LogViewModel;
 import com.taxon_mobile.views.MainActivity;
 
 import java.io.IOException;
@@ -26,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private CardView login_btn;
     private TextView login_change_register;
     private AuthViewModel viewModel;
+    private LogViewModel logViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         login_btn = findViewById(R.id.login_btn);
         login_change_register = findViewById(R.id.login_change_register);
         viewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        logViewModel = new ViewModelProvider(this).get(LogViewModel.class);
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onChanged(LoginResponse loginResponse) {
                             if (loginResponse.getStatus_code() == 200) {
+                                logViewModel.log("Bearer " + loginResponse.getToken(), "User", "User id : " + loginResponse.getUser().getId() + " logged in");
                                 try {
                                     MainActivity.user = loginResponse.getUser();
                                     MainActivity.token = loginResponse.getToken();

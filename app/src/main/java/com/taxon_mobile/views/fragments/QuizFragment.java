@@ -29,6 +29,7 @@ import com.taxon_mobile.R;
 import com.taxon_mobile.adapters.QuizAdapter;
 import com.taxon_mobile.helpers.IOnBackPressed;
 import com.taxon_mobile.models.Quiz;
+import com.taxon_mobile.viewmodels.LogViewModel;
 import com.taxon_mobile.viewmodels.QuizViewModel;
 import com.taxon_mobile.viewmodels.UserStatViewModel;
 import com.taxon_mobile.views.MainActivity;
@@ -160,6 +161,13 @@ public class QuizFragment extends Fragment implements IOnBackPressed {
                         editor.putInt("dna", MainActivity.dna);
                         editor.putInt("point", MainActivity.point);
                         editor.commit();
+                        if (MainActivity.point >= 20) {
+                            LogViewModel.log("Bearer " + MainActivity.token, "Quiz", "User id : " + MainActivity.user.getId() + " finished quiz with score " + MainActivity.point);
+                            LogViewModel.log("Bearer " + MainActivity.token, "Quiz", "User id : " + MainActivity.user.getId() + " unlocked sea biome");
+                        } else {
+                            LogViewModel.log("Bearer " + MainActivity.token, "Quiz", "User id : " + MainActivity.user.getId() + " finished quiz with score " + MainActivity.point);
+                        }
+
                         Navigation.findNavController(foo).navigate(R.id.action_quizFragment_to_mainFragment);
                         quizFeedbackDialog.dismiss();
                     }
