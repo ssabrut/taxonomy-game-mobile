@@ -114,7 +114,6 @@ public class User {
         private int student_id;
         private int power;
         private int evo;
-        private int dna;
         private int point;
         private String created_at;
         private String updated_at;
@@ -154,14 +153,6 @@ public class User {
 
         public void setEvo(int evo) {
             this.evo = evo;
-        }
-
-        public int getDna() {
-            return dna;
-        }
-
-        public void setDna(int dna) {
-            this.dna = dna;
         }
 
         public int getPoint() {

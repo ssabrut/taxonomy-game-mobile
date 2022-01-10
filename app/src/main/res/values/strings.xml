@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Taxon</string>
+    <string name="app_name">Taxev</string>
 
     <!--  choose auth activity  -->
     <string name="login_label">Masuk</string>
